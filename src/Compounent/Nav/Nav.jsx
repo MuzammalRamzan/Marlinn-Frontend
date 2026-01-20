@@ -15,39 +15,36 @@ function Nav() {
   return (
     <div
       style={{
-        borderBottom: "2px solid #d4af37",
-        background: "linear-gradient(to bottom, rgba(44, 24, 16, 0.8), rgba(26, 15, 8, 0.9))",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)"
+        borderBottom: "1px solid rgba(212, 175, 55, 0.3)",
+        background: "#0a0503",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)"
       }}
     >
-      <div className='container-fluid py-3'>
+      <div className='container-fluid py-2'>
         <div className="d-block d-md-flex justify-content-between text-white align-items-center">
           <div className='fw-bold d-md-block d-flex justify-content-between'>
             <img
               src={logo}
               alt="Mango Logo"
-              width={120}
+              width={100}
               className='m-auto'
-              style={{
-                filter: 'drop-shadow(0 0 10px rgba(212, 175, 55, 0.3))'
-              }}
             />
           </div>
           <div
             className='fw-bold'
             style={{
-              fontSize: "16px",
+              fontSize: "14px",
               color: "#d4af37",
-              letterSpacing: "0.5px"
+              letterSpacing: "0.3px"
             }}
           >
             Welcome to Mango Bot
           </div>
-          <div className='fw-bold' style={{ fontSize: "14px", color: "#ffffff" }}>
-            <span style={{ fontSize: "16px", color: "#d4af37" }}>
+          <div className='fw-bold' style={{ fontSize: "13px", color: "#cccccc" }}>
+            <span style={{ fontSize: "14px", color: "#d4af37" }}>
               {time.toLocaleDateString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}
             </span>
-            <span className='ms-2' style={{ fontSize: "16px", color: "#ffffff" }}>
+            <span className='ms-2' style={{ fontSize: "14px" }}>
               {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
             </span>
           </div>

@@ -52,10 +52,10 @@ const LoginPage = () => {
         className="w-100 p-5 rounded-4"
         style={{
           maxWidth: '500px',
-          background: 'linear-gradient(135deg, rgba(44, 24, 16, 0.95), rgba(26, 15, 8, 0.98))',
-          border: '2px solid #d4af37',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.2)',
-          backdropFilter: 'blur(10px)'
+          background: 'linear-gradient(to bottom, rgba(20, 15, 15, 0.95), rgba(10, 5, 3, 0.98))',
+          border: '1px solid rgba(212, 175, 55, 0.4)',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
+          borderRadius: '8px'
         }}
       >
         <div className="text-center mb-4">
@@ -70,9 +70,10 @@ const LoginPage = () => {
           />
           <h2 style={{
             color: '#d4af37',
-            fontWeight: '600',
-            fontSize: '28px',
-            marginTop: '10px'
+            fontWeight: '500',
+            fontSize: '24px',
+            marginTop: '10px',
+            letterSpacing: '0.3px'
           }}>Welcome Back</h2>
         </div>
         {error && (
@@ -96,11 +97,11 @@ const LoginPage = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               style={{
-                background: 'linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(26, 15, 8, 0.9))',
-                border: '2px solid #d4af37',
+                background: 'linear-gradient(to bottom, rgba(68, 57, 21, 0.3), rgba(20, 15, 15, 0.95))',
+                border: '1px solid rgba(212, 175, 55, 0.5)',
                 color: '#ffffff',
-                padding: '12px 16px',
-                borderRadius: '8px'
+                padding: '10px 14px',
+                borderRadius: '6px'
               }}
             />
           </Form.Group>
@@ -113,11 +114,11 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={{
-                background: 'linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(26, 15, 8, 0.9))',
-                border: '2px solid #d4af37',
+                background: 'linear-gradient(to bottom, rgba(68, 57, 21, 0.3), rgba(20, 15, 15, 0.95))',
+                border: '1px solid rgba(212, 175, 55, 0.5)',
                 color: '#ffffff',
-                padding: '12px 16px',
-                borderRadius: '8px'
+                padding: '10px 14px',
+                borderRadius: '6px'
               }}
             />
           </Form.Group>

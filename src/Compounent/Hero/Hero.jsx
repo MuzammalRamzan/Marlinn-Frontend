@@ -446,14 +446,15 @@ const handleChange = (e) => {
                 className="box d-block align-items-center text-white p-3"
                 style={{
                   backgroundImage:
-                    "linear-gradient(to bottom,rgba(203, 149, 73, 0.42), #140f0f ,#140f0f, #000000)",
-                  borderRadius: "10px",
+                    "linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(20, 15, 15, 0.95), #0a0605)",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(212, 175, 55, 0.4)"
                 }}
               >
                 <div>
                   <h2
                     className="mb-2"
-                    style={{ fontSize: "13px", color: "#d4af37", fontWeight: "600" }}
+                    style={{ fontSize: "12px", color: "#d4af37", fontWeight: "500", letterSpacing: "0.3px" }}
                   >
                     Block Height
                   </h2>
@@ -526,14 +527,15 @@ const handleChange = (e) => {
                 className="box d-block align-items-center text-white py-3 px-2"
                 style={{
                   backgroundImage:
-                    "linear-gradient(to bottom,rgba(203, 149, 73, 0.42), #140f0f ,#140f0f, #000000)",
-                  borderRadius: "10px",
+                    "linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(20, 15, 15, 0.95), #0a0605)",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(212, 175, 55, 0.4)"
                 }}
               >
                 <div>
                   <h2
                     className="mb-2"
-                    style={{ fontSize: "13px", color: "#d4af37", fontWeight: "600" }}
+                    style={{ fontSize: "12px", color: "#d4af37", fontWeight: "500", letterSpacing: "0.3px" }}
                   >
                     Pending Transactions
                   </h2>
@@ -624,13 +626,13 @@ const handleChange = (e) => {
                     onChange={(e) => setNetwork(e.target.value)}
                     className="px-1 py-1  rounded-lg w-25 booderr"
                     style={{
-                      background: "linear-gradient(to bottom, rgba(139, 105, 20, 0.3), rgba(26, 15, 8, 0.9))",
-                      borderRadius: "8px",
-                      border: "2px solid #d4af37",
-                      boxShadow:
-                        "inset 0 1px 3px rgba(212, 175, 55, 0.2), inset 0 -1px 2px rgba(0,0,0,0.7), 0 2px 6px rgba(0,0,0,0.5)",
+                      background: "linear-gradient(to bottom, rgba(68, 57, 21, 0.3), rgba(20, 15, 15, 0.95))",
+                      borderRadius: "6px",
+                      border: "1px solid rgba(212, 175, 55, 0.5)",
+                      boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.3)",
                       color: "#ffffff",
-                      fontWeight: "500"
+                      fontWeight: "500",
+                      fontSize: "13px"
                     }}
                   >
                     <option value="" disabled>
@@ -683,13 +685,13 @@ const handleChange = (e) => {
               placeholder="Enter Address"
               value={address || ""}
               style={{
-                background: "linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(26, 15, 8, 0.9))",
-                borderRadius: "8px",
-                border: "2px solid #d4af37",
-                boxShadow:
-                  "inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 rgba(212, 175, 55, 0)",
+                background: "linear-gradient(to bottom, rgba(68, 57, 21, 0.3), rgba(20, 15, 15, 0.95))",
+                borderRadius: "6px",
+                border: "1px solid rgba(212, 175, 55, 0.5)",
+                boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.3)",
                 color: "#ffffff",
                 paddingLeft: "12px",
+                fontSize: "13px"
               }}
               onChange={(e) => setAddress(e.target.value)}
             />
@@ -699,13 +701,13 @@ const handleChange = (e) => {
               placeholder="Enter Private Key"
               value={displayKey}
               style={{
-                background: "linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(26, 15, 8, 0.9))",
-                borderRadius: "8px",
-                border: "2px solid #d4af37",
-                boxShadow:
-                  "inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 rgba(212, 175, 55, 0)",
+                background: "linear-gradient(to bottom, rgba(68, 57, 21, 0.3), rgba(20, 15, 15, 0.95))",
+                borderRadius: "6px",
+                border: "1px solid rgba(212, 175, 55, 0.5)",
+                boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.3)",
                 color: "#ffffff",
                 paddingLeft: "12px",
+                fontSize: "13px"
               }}
               onChange={handleChange}
             />
@@ -713,12 +715,13 @@ const handleChange = (e) => {
               <button
                 className="btn btn-pink w-50 mt-3 fw-bold py-2"
                 style={{
-                  fontSize: "16px",
+                  fontSize: "14px",
                   background: "linear-gradient(to bottom, #d4af37, #b8941f, #8b6914)",
-                  borderRadius: "8px",
-                  border: "2px solid #d4af37",
+                  borderRadius: "6px",
+                  border: "1px solid #d4af37",
                   fontWeight: "600",
-                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                  color: "#000000"
                 }}
                 onClick={handleRunBot}
               >

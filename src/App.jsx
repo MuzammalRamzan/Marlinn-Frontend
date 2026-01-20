@@ -30,9 +30,8 @@ function App() {
           }`}
         >
           <div className="text-center">
-            <img src={logo} alt="Mango Logo" width={350} style={{
-              filter: 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.5))',
-              animation: 'pulse 2s infinite'
+            <img src={logo} alt="Mango Logo" width={280} style={{
+              filter: 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.3))'
             }} />
           </div>
         </div>
