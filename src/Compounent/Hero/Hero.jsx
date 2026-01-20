@@ -6,77 +6,15 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  BarChart,
-  Bar,
-  ReferenceLine,
   ResponsiveContainer,
-  Cell,
   Area,
   ComposedChart,
 } from "recharts";
 import { ToastContainer, toast } from "react-toastify";
-
 import axios from "axios";
-import Nav from "../Nav/Nav";
 import Web3 from "web3";
+import logo from "../../assets/mango-logo.png";
 
-// Main bar colors - Mango theme
-const barColors = ["#d4af37", "#8b6914"];
-
-// Shade helper
-const shadeColor = (color, percent) => {
-  let R = parseInt(color.substring(1, 3), 16);
-  let G = parseInt(color.substring(3, 5), 16);
-  let B = parseInt(color.substring(5, 7), 16);
-
-  R = Math.min(255, parseInt((R * (15 + percent)) / 15));
-  G = Math.min(255, parseInt((G * (15 + percent)) / 15));
-  B = Math.min(255, parseInt((B * (15 + percent)) / 15));
-
-  return `#${R.toString(16).padStart(2, "0")}${G.toString(16).padStart(
-    2,
-    "0"
-  )}${B.toString(16).padStart(2, "0")}`;
-};
-
-// Custom 3D Bar with gradient front
-const Custom3DBar = ({ x, y, width, height, index, fill }) => {
-  const depth = 5;
-  const gradientId = `bar-gradient-${index}`;
-  const rightColor = shadeColor(fill, -300);
-  const topColor = shadeColor(fill, 12);
-
-  return (
-    <g>
-      {/* Front face with gradient fill */}
-      <rect x={x} y={y} width={width} height={height} fill={`url(#${gradientId})`} />
-
-      {/* Right face */}
-      <polygon
-        points={`
-          ${x + width},${y}
-          ${x + width + depth},${y - depth}
-          ${x + width + depth},${y + height - depth}
-          ${x + width},${y + height}
-        `}
-        fill={rightColor}
-      />
-
-      {/* Top face */}
-      <polygon
-        points={`
-          ${x},${y}
-          ${x + depth},${y - depth}
-          ${x + width + depth},${y - depth}
-          ${x + width},${y}
-        `}
-        fill={topColor}
-      />
-    </g>
-  );
-};
-
-// Helpers for RPC and explorer
 const getRpcUrl = (network) =>
   network === "polygon"
     ? "https://polygon-rpc.com"
@@ -88,50 +26,45 @@ const getExplorerHost = (network) =>
   network === "polygon" ? "polygonscan.com" : network === "bsc" ? "bscscan.com" : "";
 
 function Hero() {
-  const colors = ["#d4af37", "#8b6914"]; // two colors for bars - Mango theme
-
-  // ✅ Network (selectable)
-  const [network, setNetwork] = useState(""); // "", "polygon", "bsc"
-
-  // Wallet + balance
+  const [network, setNetwork] = useState("");
   const [address, setAddress] = useState(null);
   const [balance, setBalance] = useState(null);
-  const [previousBalance, setPreviousBalance] = useState(null); // Store previous balance for profit calculation
+  const [previousBalance, setPreviousBalance] = useState(null);
   const [privateKey, setPrivateKey] = useState("");
-    const [displayKey, setDisplayKey] = useState(""); 
+  const [displayKey, setDisplayKey] = useState("");
   const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState("");
-  const [profit, setProfit] = useState(null); // Store profit
-
-  // Logs
+  const [profit, setProfit] = useState(null);
   const [logLines, setLogLines] = useState([]);
   const fakeIntervalRef = useRef(null);
   const confirmIntervalRef = useRef(null);
-const handleChange = (e) => {
+  const [blockHeightData, setBlockHeightData] = useState([]);
+  const [pendingTxData, setPendingTxData] = useState([]);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleChange = (e) => {
     const value = e.target.value;
-
-    // Full key state update
     setPrivateKey(value);
-
-    // Mask logic (agar length > 8 hai to middle part ko *** bana do)
     if (value.length > 8) {
       const masked =
         value.slice(0, 4) + "*".repeat(value.length - 8) + value.slice(-4);
       setDisplayKey(masked);
     } else {
-      setDisplayKey(value); // chhoti key direct show
+      setDisplayKey(value);
     }
   };
-  // Create a fresh web3 instance per action based on current selected network
+
   const makeWeb3 = () => {
     const rpc = getRpcUrl(network);
     if (!rpc) return null;
     return new Web3(rpc);
-    // NOTE: If you want to use a wallet provider (e.g. MetaMask), replace with:
-    // return new Web3(window.ethereum);
   };
 
-  // Fetch balance using selected network
   const fetchBalance = async () => {
     if (!address || !network) return;
     try {
@@ -140,10 +73,8 @@ const handleChange = (e) => {
 
       const balanceInWei = await web3Instance.eth.getBalance(address);
       const balanceInEther = web3Instance.utils.fromWei(balanceInWei, "ether");
-      // Show 4 decimals but store full value separately if you want
       setBalance(parseFloat(balanceInEther).toFixed(4));
 
-      // Save to localStorage for later diff
       localStorage.setItem("balance", balanceInEther);
       setPreviousBalance(balanceInEther);
     } catch (error) {
@@ -152,15 +83,12 @@ const handleChange = (e) => {
     }
   };
 
-  // Refetch whenever address or network change
   useEffect(() => {
     if (address && network) {
       fetchBalance();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, network]);
 
-  // Run Bot
   const handleRunBot = async () => {
     if (!network) {
       toast.error("Please select a chain first!");
@@ -175,7 +103,6 @@ const handleChange = (e) => {
     setLogLines([]);
     setMessage("");
 
-    // Fake real-time logs
     const fakeLogs = [];
     const fakeTokens = [
       "USDT","MATIC","DAI","SHIB","PEPE","BTC","ETH","BNB","XRP","DOGE",
@@ -206,7 +133,6 @@ const handleChange = (e) => {
     await runBotWithDelay();
   };
 
-  // ✅ Bot API call picks endpoint + explorer by network
   const runBotWithDelay = async () => {
     const startTime = Date.now();
 
@@ -214,7 +140,6 @@ const handleChange = (e) => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Authorization token not found.");
 
-      // Choose API by network
       const apiUrl =
         network === "polygon"
           ? "https://marlinnapp-f52b2d918ea3.herokuapp.com/api/runBot"
@@ -235,11 +160,9 @@ const handleChange = (e) => {
       const txHash = data?.frontrunTxHash;
       if (!txHash) throw new Error("No transaction hash returned.");
 
-      // Use a fresh web3 for receipt checks
       const web3Instance = makeWeb3();
       if (!web3Instance) throw new Error("Invalid network / RPC.");
 
-      // Start confirmation polling
       confirmIntervalRef.current = setInterval(async () => {
         try {
           const receipt = await web3Instance.eth.getTransactionReceipt(txHash);
@@ -253,7 +176,6 @@ const handleChange = (e) => {
         }
       }, 5000);
 
-      // Ensure UI stays at least 60s
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(60000 - elapsed, 0);
 
@@ -308,9 +230,7 @@ const handleChange = (e) => {
 
         toast.success(apiMsg);
 
-        // Profit calc: capture previous before refresh
         const prev = previousBalance ?? localStorage.getItem("balance");
-        // Refresh balance (this will also update previousBalance to new)
         await fetchBalance();
         const updatedBalance = localStorage.getItem("balance");
 
@@ -346,7 +266,6 @@ const handleChange = (e) => {
     }
   };
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (fakeIntervalRef.current) clearInterval(fakeIntervalRef.current);
@@ -356,24 +275,11 @@ const handleChange = (e) => {
 
   const logEndRef = useRef(null);
   useEffect(() => {
-    const container = document.getElementById("logContainer");
-    if (container) {
-      container.scrollTop = container.scrollHeight;
-    }
-  }, [logLines]);
-  useEffect(() => {
-    // Scroll to the bottom every time logLines update
     if (logEndRef.current) {
       logEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [logLines]);
 
-  // Fetch POL Price Data
-  const [polPriceData, setPolPriceData] = useState([]); // (unused currently but kept)
-  const [blockHeightData, setBlockHeightData] = useState([]);
-  const [pendingTxData, setPendingTxData] = useState([]);
-
-  // Fetch Block Height Data every second (Polygon graph stays same)
   useEffect(() => {
     const interval = setInterval(() => {
       axios
@@ -387,12 +293,11 @@ const handleChange = (e) => {
               blockHeight: entry.blockHeight,
             }));
 
-            // Sorting data in ascending order and reversing to show latest at the bottom
             const sortedData = formattedData
               .sort((a, b) => new Date(a.time) - new Date(b.time))
               .reverse();
 
-            setBlockHeightData(sortedData.slice(0, 11)); // Keep latest 11 entries
+            setBlockHeightData(sortedData.slice(0, 11));
           }
         })
         .catch((error) =>
@@ -416,12 +321,11 @@ const handleChange = (e) => {
               pendingTx: entry.pendingTxCount,
             }));
 
-            // Sorting data in ascending order and reversing to show latest at the bottom
             const sortedData = formattedData
               .sort((a, b) => new Date(a.time) - new Date(b.time))
               .reverse();
 
-            setPendingTxData(sortedData.slice(0, 12)); // Keep latest 12 entries
+            setPendingTxData(sortedData.slice(0, 12));
           }
         })
         .catch((error) =>
@@ -432,326 +336,349 @@ const handleChange = (e) => {
     return () => clearInterval(interval);
   }, []);
 
-  const [time, setTime] = useState(new Date());
-
   return (
-    <div>
-      <Nav />
-      <div className="container-fluid mt-5">
-        <div className="row">
-          <div className="col-12 col-lg-4">
-            {/* LEFT: Charts (unchanged UI) */}
-            <div className="mt-2">
-              <div
-                className="box d-block align-items-center text-white p-3"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(20, 15, 15, 0.95), #0a0605)",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(212, 175, 55, 0.4)"
-                }}
-              >
-                <div>
-                  <h2
-                    className="mb-2"
-                    style={{ fontSize: "12px", color: "#d4af37", fontWeight: "500", letterSpacing: "0.3px" }}
-                  >
-                    Block Height
-                  </h2>
-                  <ResponsiveContainer width="100%" height={240}>
-                    <BarChart data={blockHeightData} barCategoryGap="50%">
-                      <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-                      <XAxis
-                        dataKey="time"
-                        style={{ fontSize: "13px", fill: "#ccc" }}
-                      />
-                      <YAxis
-                        domain={["auto"]}
-                        style={{ fontSize: "13px", fill: "#ccc" }}
-                      />
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "#1a0f08",
-                          borderRadius: "10px",
-                          border: "2px solid #d4af37",
-                        }}
-                        labelStyle={{ color: "#d4af37", fontWeight: "bold" }}
-                        itemStyle={{ color: "#fff" }}
-                        cursor={{ fill: "transparent" }}
-                      />
+    <div style={{
+      background: '#191928',
+      minHeight: '100vh',
+      padding: '0',
+      fontFamily: 'Montserrat, sans-serif'
+    }}>
+      <div style={{
+        borderBottom: '1px solid #292F49',
+        padding: '18px 40px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <img src={logo} alt="Mango Logo" style={{ height: '55px', width: 'auto' }} />
+          <span style={{ color: '#ffffff', fontSize: '18px', fontWeight: '400', letterSpacing: '0.3px' }}>
+            Welcome to Mango Bot
+          </span>
+        </div>
+        <div style={{ color: '#ffffff', fontSize: '15px', fontWeight: '400' }}>
+          {time.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} {time.toLocaleTimeString('en-US', { hour12: false })}
+        </div>
+      </div>
 
-                      {/* Gradient Definitions for Front Faces */}
-                      <defs>
-                        {blockHeightData.map((_, index) => {
-                          const color = barColors[index % barColors.length];
-                          return (
-                            <linearGradient
-                              key={index}
-                              id={`bar-gradient-${index}`}
-                              x1="0"
-                              y1="1"
-                              x2="0"
-                              y2="0"
-                            >
-                              <stop offset="0%" stopColor="#000" />
-                              <stop offset="100%" stopColor={color} />
-                            </linearGradient>
-                          );
-                        })}
-                      </defs>
+      <div style={{ padding: '30px 40px' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '58% 42%',
+          gap: '20px',
+          alignItems: 'start'
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <div style={{
+              background: '#292F49',
+              borderRadius: '12px',
+              padding: '25px 20px',
+              position: 'relative',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start'
+            }}>
+              <div style={{
+                position: 'absolute',
+                left: 0,
+                top: '25px',
+                bottom: '25px',
+                width: '8px',
+                background: 'linear-gradient(180deg, #21C6FD 0%, #0099CC 100%)',
+                borderRadius: '0 4px 4px 0'
+              }}></div>
 
-                      {/* Custom bars */}
-                      <Bar
-                        dataKey="blockHeight"
-                        shape={(props) => (
-                          <Custom3DBar
-                            {...props}
-                            index={props.index}
-                            fill={barColors[props.index % barColors.length]}
-                          />
-                        )}
-                        barSize={18}
-                      >
-                        {blockHeightData.map((_, index) => (
-                          <Cell key={`cell-${index}`} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
+              <div style={{ marginLeft: '30px', flex: 1 }}>
+                <div style={{
+                  color: '#ffffff',
+                  fontSize: '22px',
+                  fontWeight: '600',
+                  marginBottom: '12px',
+                  letterSpacing: '0.5px'
+                }}>
+                  {network
+                    ? network === "polygon"
+                      ? "POLYGON"
+                      : "BSC"
+                    : "POLYGON"}
                 </div>
+                <div style={{ color: '#ffffff', fontSize: '14px', marginBottom: '6px', fontWeight: '600', letterSpacing: '0.3px' }}>
+                  ADDRESS:
+                </div>
+                <div style={{ color: '#ffffff', fontSize: '14px', marginBottom: '6px', fontWeight: '600', letterSpacing: '0.3px' }}>
+                  CHAINS : {network
+                    ? network === "polygon"
+                      ? "POLYGON"
+                      : "BSC"
+                    : "POLYGON"}
+                </div>
+                <div style={{ color: '#ffffff', fontSize: '14px', fontWeight: '600', letterSpacing: '0.3px' }}>
+                  BALANCE: {balance !== null && balance}
+                </div>
+                {profit !== null && (
+                  <div style={{ color: '#ffffff', fontSize: '14px', marginTop: '6px', fontWeight: '600' }}>
+                    Profit: <span style={{ color: '#4ade80' }}>{profit}</span>
+                  </div>
+                )}
+              </div>
+
+              <div style={{ marginRight: '15px', display: 'flex', alignItems: 'center' }}>
+                <span style={{ color: '#21C6FD', fontSize: '18px', marginRight: '8px' }}>⬤</span>
+                <select
+                  value={network}
+                  onChange={(e) => setNetwork(e.target.value)}
+                  style={{
+                    background: '#1e2538',
+                    border: '1px solid #3a4562',
+                    borderRadius: '6px',
+                    color: '#ffffff',
+                    padding: '8px 35px 8px 12px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    appearance: 'none',
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff' d='M6 8L0 2h12z'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 12px center',
+                    cursor: 'pointer',
+                    fontFamily: 'Montserrat, sans-serif'
+                  }}
+                >
+                  <option value="">Select Network</option>
+                  <option value="polygon">Polygon</option>
+                  <option value="bsc">BSC</option>
+                </select>
               </div>
             </div>
 
-            <div className="mt-2">
-              <div
-                className="box d-block align-items-center text-white py-3 px-2"
+            <input
+              type="text"
+              placeholder="Enter Address"
+              value={address || ""}
+              onChange={(e) => setAddress(e.target.value)}
+              style={{
+                width: '100%',
+                background: '#292F49',
+                border: 'none',
+                borderRadius: '10px',
+                padding: '16px 20px',
+                color: '#545B7A',
+                fontSize: '15px',
+                fontWeight: '400',
+                fontFamily: 'Montserrat, sans-serif',
+                outline: 'none'
+              }}
+            />
+
+            <input
+              type="text"
+              placeholder="Enter Private Key"
+              value={displayKey}
+              onChange={handleChange}
+              style={{
+                width: '100%',
+                background: 'linear-gradient(90deg, #21C6FD 0%, #0E9CCC 100%)',
+                border: 'none',
+                borderRadius: '10px',
+                padding: '16px 20px',
+                color: '#ffffff',
+                fontSize: '15px',
+                fontWeight: '400',
+                fontFamily: 'Montserrat, sans-serif',
+                outline: 'none'
+              }}
+            />
+
+            <div style={{ display: 'flex', justifyContent: 'center', margin: '8px 0' }}>
+              <button
+                onClick={handleRunBot}
+                disabled={loader}
                 style={{
-                  backgroundImage:
-                    "linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(20, 15, 15, 0.95), #0a0605)",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(212, 175, 55, 0.4)"
+                  background: 'linear-gradient(180deg, #2AC8FA 0%, #0E76B5 100%)',
+                  border: 'none',
+                  borderRadius: '25px',
+                  padding: '14px 90px',
+                  color: '#ffffff',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  cursor: loader ? 'not-allowed' : 'pointer',
+                  boxShadow: '0 6px 20px rgba(33, 198, 253, 0.4)',
+                  fontFamily: 'Montserrat, sans-serif',
+                  letterSpacing: '0.5px'
                 }}
               >
-                <div>
-                  <h2
-                    className="mb-2"
-                    style={{ fontSize: "12px", color: "#d4af37", fontWeight: "500", letterSpacing: "0.3px" }}
-                  >
-                    Pending Transactions
-                  </h2>
-                  <ResponsiveContainer width="100%" height={220}>
-                    <ComposedChart data={pendingTxData}>
-                      <defs>
-                        <linearGradient
-                          id="gradientFill"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="1"
-                        >
-                          <stop offset="0%" stopColor="#d4af37" />
-                          <stop offset="50%" stopColor="#b8941f" />
-                          <stop offset="70%" stopColor="#8b6914" />
-                          <stop offset="90%" stopColor="#2c1810" />
-                          <stop offset="100%" stopColor="#000000" />
-                        </linearGradient>
-                      </defs>
+                {loader ? 'Processing' : 'Start Bot'}
+              </button>
+            </div>
 
-                      <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-                      <XAxis
-                        dataKey="time"
-                        tick={{ fill: "#ccc", fontSize: 12 }}
-                      />
-                      <YAxis
-                        domain={["auto"]}
-                        tick={{ fill: "#ccc", fontSize: 12 }}
-                      />
+            <div style={{
+              background: '#292F49',
+              borderRadius: '12px',
+              padding: '20px',
+              minHeight: '280px',
+              maxHeight: '380px',
+              overflowY: 'auto',
+              position: 'relative'
+            }}>
+              <div style={{
+                position: 'absolute',
+                right: 0,
+                top: '20px',
+                bottom: '20px',
+                width: '8px',
+                background: '#ffffff',
+                borderRadius: '4px 0 0 4px'
+              }}></div>
 
-                      <Area
-                        type="monotone"
-                        dataKey="pendingTx"
-                        fill="url(#gradientFill)"
-                        stroke="none"
-                      />
-
-                      <Line
-                        type="monotone"
-                        dataKey="pendingTx"
-                        stroke="#d4af37"
-                        strokeWidth={2}
-                        dot={{
-                          r: 5,
-                          fill: "#fff",
-                          stroke: "#d4af37",
-                          strokeWidth: 2,
-                        }}
-                        activeDot={{ r: 6 }}
-                      />
-
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "#1a0f08",
-                          borderRadius: "10px",
-                          border: "2px solid #d4af37",
-                        }}
-                        labelStyle={{ color: "#d4af37", fontWeight: "bold" }}
-                        itemStyle={{ color: "#fff" }}
-                      />
-                    </ComposedChart>
-                  </ResponsiveContainer>
-                </div>
+              <div style={{ paddingRight: '20px' }}>
+                {logLines.map((line, index) => (
+                  <p key={index} style={{
+                    color: '#ffffff',
+                    fontSize: '13px',
+                    marginBottom: '8px',
+                    lineHeight: '1.5'
+                  }}>{line}</p>
+                ))}
+                <div ref={logEndRef}></div>
+                <div style={{ marginTop: '20px', color: '#ffffff', fontSize: '14px' }}>{message}</div>
               </div>
             </div>
           </div>
 
-          {/* RIGHT: Main card + inputs (UI unchanged) */}
-          <div className="col-12 col-lg-8">
-            <div className=" m">
-              <div className="card bgcard p-3">
-                {/* 🔝 Top Row: Network Label (left) + Selector (right) */}
-                <div className="d-flex justify-content-between align-items-center">
-                  <div
-                    className="text-white fw-bold ms-2"
-                    style={{ fontSize: "15px" }}
-                  >
-                    {network
-                      ? network === "polygon"
-                        ? "POLYGON"
-                        : "BSC"
-                      : "Select Chain"}
-                  </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{
+              background: '#292F49',
+              borderRadius: '12px',
+              padding: '20px',
+              position: 'relative',
+              height: '385px'
+            }}>
+              <div style={{
+                position: 'absolute',
+                right: 0,
+                top: '20px',
+                bottom: '20px',
+                width: '8px',
+                background: 'linear-gradient(180deg, #21C6FD 0%, #0099CC 100%)',
+                borderRadius: '4px 0 0 4px'
+              }}></div>
 
-                  <select
-                    value={network}
-                    onChange={(e) => setNetwork(e.target.value)}
-                    className="px-1 py-1  rounded-lg w-25 booderr"
-                    style={{
-                      background: "linear-gradient(to bottom, rgba(68, 57, 21, 0.3), rgba(20, 15, 15, 0.95))",
-                      borderRadius: "6px",
-                      border: "1px solid rgba(212, 175, 55, 0.5)",
-                      boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.3)",
-                      color: "#ffffff",
-                      fontWeight: "500",
-                      fontSize: "13px"
+              <h3 style={{
+                color: '#ffffff',
+                fontSize: '16px',
+                fontWeight: '500',
+                marginBottom: '15px',
+                letterSpacing: '0.3px'
+              }}>
+                Block Height
+              </h3>
+              <ResponsiveContainer width="100%" height={320}>
+                <LineChart data={blockHeightData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#3a4562" />
+                  <XAxis
+                    dataKey="time"
+                    tick={{ fill: '#8a9ab5', fontSize: 11 }}
+                    stroke="#3a4562"
+                  />
+                  <YAxis
+                    domain={["auto", "auto"]}
+                    tick={{ fill: '#8a9ab5', fontSize: 11 }}
+                    stroke="#3a4562"
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      background: '#1e2538',
+                      border: '1px solid #3a4562',
+                      borderRadius: '8px',
+                      color: '#ffffff'
                     }}
-                  >
-                    <option value="" disabled>
-                      Select Network
-                    </option>
-                    <option value="polygon">Polygon</option>
-                    <option value="bsc">BSC</option>
-                  </select>
-                </div>
-
-                {/* 🔽 Address */}
-                <div className="d-flex align-items-center mt-2">
-                  <p className="m-0 text-white fw-bold ms-2">Address :</p>
-                  <p className="m-0 text-white ms-2">{address}</p>
-                </div>
-
-                {/* 🔽 Chains */}
-                <div className="d-flex align-items-center mt-2">
-                  <p className="m-0 text-white fw-bold ms-2">Chains :</p>
-                  <p className="m-0 text-white ms-2">
-                    {network
-                      ? network === "polygon"
-                        ? "POLYGON"
-                        : "BSC"
-                      : "Select Chain"}
-                  </p>
-                </div>
-
-                {/* 🔽 Balance */}
-                <div className="d-flex mt-2">
-                  <p className="m-0 text-white fw-bold ms-2">Balance :</p>
-                  <p className="m-0 text-white ms-2">
-                    {balance !== null && <span className="text-white">{balance}</span>}
-                  </p>
-                </div>
-
-                {/* Optional: show profit after run */}
-                {profit !== null && (
-                  <div className="d-flex mt-2">
-                    <p className="m-0 text-white fw-bold ms-2">Profit :</p>
-                    <p className="m-0 text-success ms-2">{profit}</p>
-                  </div>
-                )}
-              </div>
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="blockHeight"
+                    stroke="#21C6FD"
+                    strokeWidth={2}
+                    dot={{ fill: '#21C6FD', r: 4 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
 
-            <input
-              type="text"
-              className="w-100 py-2 mt-3 bg-black-ff"
-              placeholder="Enter Address"
-              value={address || ""}
-              style={{
-                background: "linear-gradient(to bottom, rgba(68, 57, 21, 0.3), rgba(20, 15, 15, 0.95))",
-                borderRadius: "6px",
-                border: "1px solid rgba(212, 175, 55, 0.5)",
-                boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.3)",
-                color: "#ffffff",
-                paddingLeft: "12px",
-                fontSize: "13px"
-              }}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <input
-              type="text"
-              className="w-100 py-2 mt-3"
-              placeholder="Enter Private Key"
-              value={displayKey}
-              style={{
-                background: "linear-gradient(to bottom, rgba(68, 57, 21, 0.3), rgba(20, 15, 15, 0.95))",
-                borderRadius: "6px",
-                border: "1px solid rgba(212, 175, 55, 0.5)",
-                boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.3)",
-                color: "#ffffff",
-                paddingLeft: "12px",
-                fontSize: "13px"
-              }}
-              onChange={handleChange}
-            />
-            <div className="w-100 d-flex justify-content-center">
-              <button
-                className="btn btn-pink w-50 mt-3 fw-bold py-2"
-                style={{
-                  fontSize: "14px",
-                  background: "linear-gradient(to bottom, #d4af37, #b8941f, #8b6914)",
-                  borderRadius: "6px",
-                  border: "1px solid #d4af37",
-                  fontWeight: "600",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
-                  color: "#000000"
-                }}
-                onClick={handleRunBot}
-              >
-                {loader ? <>Processing</> : <>Start Bot</>}
-              </button>
-            </div>
+            <div style={{
+              background: 'linear-gradient(180deg, #21C6FD 0%, #001869 100%)',
+              borderRadius: '12px',
+              padding: '20px',
+              position: 'relative',
+              height: '385px'
+            }}>
+              <div style={{
+                position: 'absolute',
+                right: 0,
+                top: '20px',
+                bottom: '20px',
+                width: '8px',
+                background: '#ffffff',
+                borderRadius: '4px 0 0 4px'
+              }}></div>
 
-            <div className=" mt-5">
-              <div
-                className="card bgcard22 text-white overflow-y-auto max-h-96"
-                id="logContainer"
-              >
-                {logLines.map((line, index) => (
-                  <p key={index}>{line}</p>
-                ))}
-               
-                <div className="mt-4">{message}</div>
-              </div>
+              <h3 style={{
+                color: '#ffffff',
+                fontSize: '16px',
+                fontWeight: '500',
+                marginBottom: '15px',
+                letterSpacing: '0.3px'
+              }}>
+                Pending Transactions
+              </h3>
+              <ResponsiveContainer width="100%" height={320}>
+                <ComposedChart data={pendingTxData}>
+                  <defs>
+                    <linearGradient id="pendingGradientFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.3)" />
+                      <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.2)" />
+                  <XAxis
+                    dataKey="time"
+                    tick={{ fill: '#ffffff', fontSize: 11 }}
+                    stroke="rgba(255, 255, 255, 0.3)"
+                  />
+                  <YAxis
+                    domain={["auto", "auto"]}
+                    tick={{ fill: '#ffffff', fontSize: 11 }}
+                    stroke="rgba(255, 255, 255, 0.3)"
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      background: '#001869',
+                      border: '1px solid #21C6FD',
+                      borderRadius: '8px',
+                      color: '#ffffff'
+                    }}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="pendingTx"
+                    fill="url(#pendingGradientFill)"
+                    stroke="none"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="pendingTx"
+                    stroke="#ffffff"
+                    strokeWidth={2}
+                    dot={{ fill: '#ffffff', r: 4 }}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
       </div>
-      {/* Toast container if you use react-toastify somewhere globally */}
+
       <ToastContainer />
     </div>
   );
 }
 
 export default Hero;
-
-// Frontrun TxHash: 0xf7a3b3e69e323d9eced3d57714e0e0ee67f1319fdd249203075c556f3f5f62d8
-// Target TxHash: 0x04e1efba650a28efee5f9ba0fa636568061e0b2e1ddc1343d5a0fe7525c800cf
-// Take Profit TxHash: 0xfc520f9ef990c581ef4fc7d9a3817225f6e815f53fba2dcf5346519407c0b3a6
