@@ -481,7 +481,7 @@ function Hero() {
               }}>
                 Block Height
               </h3>
-              <ResponsiveContainer width="100%" height={390}>
+              <ResponsiveContainer width="100%" height={270}>
                 <LineChart data={blockHeightData}>
                   <defs>
                     <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
@@ -551,7 +551,7 @@ function Hero() {
               }}>
                 Pending Transactions
               </h3>
-              <ResponsiveContainer width="100%" height={390}>
+              <ResponsiveContainer width="100%" height={270}>
                 <ComposedChart data={pendingTxData}>
                   <defs>
                     <linearGradient id="pendingGradientFill" x1="0" y1="0" x2="0" y2="1">
