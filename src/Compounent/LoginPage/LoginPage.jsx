@@ -70,13 +70,6 @@ const LoginPage = () => {
               marginBottom: '20px'
             }}
           />
-          <h2 style={{
-            color: '#3b82f6',
-            fontWeight: '500',
-            fontSize: '24px',
-            marginTop: '10px',
-            letterSpacing: '0.3px'
-          }}>Welcome Back</h2>
         </div>
         {error && (
           <Alert
