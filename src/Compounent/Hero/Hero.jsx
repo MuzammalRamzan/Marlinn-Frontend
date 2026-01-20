@@ -529,7 +529,7 @@ function Hero() {
               borderRadius: '28px',
               padding: '22px 24px',
               position: 'relative',
-              height: '450px',
+              height: '350px',
               boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)'
             }}>
               <div style={{
@@ -599,7 +599,7 @@ function Hero() {
               borderRadius: '28px',
               padding: '22px 24px',
               position: 'relative',
-              height: '450px',
+              height: '350px',
               boxShadow: '0 8px 24px rgba(33, 198, 253, 0.3)'
             }}>
               <div style={{
