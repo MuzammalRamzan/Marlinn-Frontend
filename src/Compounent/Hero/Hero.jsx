@@ -511,7 +511,7 @@ function Hero() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
             <div style={{
               background: '#353C58',
               borderRadius: '28px',
