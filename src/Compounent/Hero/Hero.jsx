@@ -547,10 +547,10 @@ function Hero() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{
               background: '#353C58',
-              borderRadius: '12px',
+              borderRadius: '16px',
               padding: '18px 20px',
               position: 'relative',
-              height: '265px'
+              height: '295px'
             }}>
               <div style={{
                 position: 'absolute',
@@ -559,7 +559,7 @@ function Hero() {
                 bottom: 0,
                 width: '6px',
                 background: 'linear-gradient(180deg, #21C6FD 0%, #0099CC 100%)',
-                borderRadius: '0 12px 12px 0'
+                borderRadius: '0 16px 16px 0'
               }}></div>
 
               <h3 style={{
@@ -571,7 +571,7 @@ function Hero() {
               }}>
                 Block Height
               </h3>
-              <ResponsiveContainer width="100%" height={215}>
+              <ResponsiveContainer width="100%" height={245}>
                 <LineChart data={blockHeightData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#2a3350" />
                   <XAxis
@@ -605,10 +605,10 @@ function Hero() {
 
             <div style={{
               background: 'linear-gradient(180deg, #21C6FD 0%, #0066B3 100%)',
-              borderRadius: '12px',
+              borderRadius: '16px',
               padding: '18px 20px',
               position: 'relative',
-              height: '265px'
+              height: '392px'
             }}>
               <div style={{
                 position: 'absolute',
@@ -617,7 +617,7 @@ function Hero() {
                 bottom: 0,
                 width: '6px',
                 background: '#ffffff',
-                borderRadius: '0 12px 12px 0'
+                borderRadius: '0 16px 16px 0'
               }}></div>
 
               <h3 style={{
@@ -629,7 +629,7 @@ function Hero() {
               }}>
                 Pending Transactions
               </h3>
-              <ResponsiveContainer width="100%" height={215}>
+              <ResponsiveContainer width="100%" height={342}>
                 <ComposedChart data={pendingTxData}>
                   <defs>
                     <linearGradient id="pendingGradientFill" x1="0" y1="0" x2="0" y2="1">
