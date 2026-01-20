@@ -546,43 +546,43 @@ function Hero() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{
-              background: '#292F49',
+              background: '#353C58',
               borderRadius: '12px',
-              padding: '20px',
+              padding: '18px 20px',
               position: 'relative',
-              height: '300px'
+              height: '265px'
             }}>
               <div style={{
                 position: 'absolute',
                 right: 0,
-                top: '20px',
-                bottom: '20px',
-                width: '8px',
+                top: 0,
+                bottom: 0,
+                width: '6px',
                 background: 'linear-gradient(180deg, #21C6FD 0%, #0099CC 100%)',
-                borderRadius: '4px 0 0 4px'
+                borderRadius: '0 12px 12px 0'
               }}></div>
 
               <h3 style={{
                 color: '#ffffff',
-                fontSize: '16px',
+                fontSize: '15px',
                 fontWeight: '500',
-                marginBottom: '15px',
+                marginBottom: '12px',
                 letterSpacing: '0.3px'
               }}>
                 Block Height
               </h3>
-              <ResponsiveContainer width="100%" height={240}>
+              <ResponsiveContainer width="100%" height={215}>
                 <LineChart data={blockHeightData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#3a4562" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#2a3350" />
                   <XAxis
                     dataKey="time"
-                    tick={{ fill: '#8a9ab5', fontSize: 11 }}
-                    stroke="#3a4562"
+                    tick={{ fill: '#8a9ab5', fontSize: 10 }}
+                    stroke="#2a3350"
                   />
                   <YAxis
                     domain={["auto", "auto"]}
-                    tick={{ fill: '#8a9ab5', fontSize: 11 }}
-                    stroke="#3a4562"
+                    tick={{ fill: '#8a9ab5', fontSize: 10 }}
+                    stroke="#2a3350"
                   />
                   <Tooltip
                     contentStyle={{
@@ -597,60 +597,60 @@ function Hero() {
                     dataKey="blockHeight"
                     stroke="#21C6FD"
                     strokeWidth={2}
-                    dot={{ fill: '#21C6FD', r: 4 }}
+                    dot={{ fill: '#21C6FD', r: 3 }}
                   />
                 </LineChart>
               </ResponsiveContainer>
             </div>
 
             <div style={{
-              background: 'linear-gradient(180deg, #21C6FD 0%, #001869 100%)',
+              background: 'linear-gradient(180deg, #21C6FD 0%, #0066B3 100%)',
               borderRadius: '12px',
-              padding: '20px',
+              padding: '18px 20px',
               position: 'relative',
-              height: '300px'
+              height: '265px'
             }}>
               <div style={{
                 position: 'absolute',
                 right: 0,
-                top: '20px',
-                bottom: '20px',
-                width: '8px',
+                top: 0,
+                bottom: 0,
+                width: '6px',
                 background: '#ffffff',
-                borderRadius: '4px 0 0 4px'
+                borderRadius: '0 12px 12px 0'
               }}></div>
 
               <h3 style={{
                 color: '#ffffff',
-                fontSize: '16px',
+                fontSize: '15px',
                 fontWeight: '500',
-                marginBottom: '15px',
+                marginBottom: '12px',
                 letterSpacing: '0.3px'
               }}>
                 Pending Transactions
               </h3>
-              <ResponsiveContainer width="100%" height={240}>
+              <ResponsiveContainer width="100%" height={215}>
                 <ComposedChart data={pendingTxData}>
                   <defs>
                     <linearGradient id="pendingGradientFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.3)" />
+                      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.25)" />
                       <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.2)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.15)" />
                   <XAxis
                     dataKey="time"
-                    tick={{ fill: '#ffffff', fontSize: 11 }}
-                    stroke="rgba(255, 255, 255, 0.3)"
+                    tick={{ fill: '#ffffff', fontSize: 10 }}
+                    stroke="rgba(255, 255, 255, 0.2)"
                   />
                   <YAxis
                     domain={["auto", "auto"]}
-                    tick={{ fill: '#ffffff', fontSize: 11 }}
-                    stroke="rgba(255, 255, 255, 0.3)"
+                    tick={{ fill: '#ffffff', fontSize: 10 }}
+                    stroke="rgba(255, 255, 255, 0.2)"
                   />
                   <Tooltip
                     contentStyle={{
-                      background: '#001869',
+                      background: '#0066B3',
                       border: '1px solid #21C6FD',
                       borderRadius: '8px',
                       color: '#ffffff'
@@ -667,7 +667,7 @@ function Hero() {
                     dataKey="pendingTx"
                     stroke="#ffffff"
                     strokeWidth={2}
-                    dot={{ fill: '#ffffff', r: 4 }}
+                    dot={{ fill: '#ffffff', r: 3 }}
                   />
                 </ComposedChart>
               </ResponsiveContainer>
