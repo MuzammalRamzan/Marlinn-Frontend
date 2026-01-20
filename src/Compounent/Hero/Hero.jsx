@@ -38,8 +38,30 @@ function Hero() {
   const [logLines, setLogLines] = useState([]);
   const fakeIntervalRef = useRef(null);
   const confirmIntervalRef = useRef(null);
-  const [blockHeightData, setBlockHeightData] = useState([]);
-  const [pendingTxData, setPendingTxData] = useState([]);
+  const [blockHeightData, setBlockHeightData] = useState([
+    { time: '10:15', blockHeight: 18245678 },
+    { time: '10:30', blockHeight: 18245892 },
+    { time: '10:45', blockHeight: 18246234 },
+    { time: '11:00', blockHeight: 18246478 },
+    { time: '11:15', blockHeight: 18246821 },
+    { time: '11:30', blockHeight: 18247095 },
+    { time: '11:45', blockHeight: 18247423 },
+    { time: '12:00', blockHeight: 18247689 },
+    { time: '12:15', blockHeight: 18248012 },
+    { time: '12:30', blockHeight: 18248456 },
+  ]);
+  const [pendingTxData, setPendingTxData] = useState([
+    { time: '10:15', pendingTx: 145 },
+    { time: '10:30', pendingTx: 178 },
+    { time: '10:45', pendingTx: 223 },
+    { time: '11:00', pendingTx: 198 },
+    { time: '11:15', pendingTx: 267 },
+    { time: '11:30', pendingTx: 312 },
+    { time: '11:45', pendingTx: 289 },
+    { time: '12:00', pendingTx: 345 },
+    { time: '12:15', pendingTx: 298 },
+    { time: '12:30', pendingTx: 376 },
+  ]);
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -280,61 +302,6 @@ function Hero() {
     }
   }, [logLines]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      axios
-        .get(
-          "https://marlinnapp-f52b2d918ea3.herokuapp.com/api/getData?type=blockheight"
-        )
-        .then((response) => {
-          if (response.data.status) {
-            const formattedData = response.data.data.map((entry) => ({
-              time: new Date(entry.time).toLocaleTimeString(),
-              blockHeight: entry.blockHeight,
-            }));
-
-            const sortedData = formattedData
-              .sort((a, b) => new Date(a.time) - new Date(b.time))
-              .reverse();
-
-            setBlockHeightData(sortedData.slice(0, 11));
-          }
-        })
-        .catch((error) =>
-          console.error("Error fetching block height data:", error)
-        );
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      axios
-        .get(
-          "https://marlinnapp-f52b2d918ea3.herokuapp.com/api/getData?type=pendingtx"
-        )
-        .then((response) => {
-          if (response.data.status) {
-            const formattedData = response.data.data.map((entry) => ({
-              time: new Date(entry.time).toLocaleTimeString(),
-              pendingTx: entry.pendingTxCount,
-            }));
-
-            const sortedData = formattedData
-              .sort((a, b) => new Date(a.time) - new Date(b.time))
-              .reverse();
-
-            setPendingTxData(sortedData.slice(0, 12));
-          }
-        })
-        .catch((error) =>
-          console.error("Error fetching pending transactions data:", error)
-        );
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div style={{
@@ -547,57 +514,69 @@ function Hero() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{
               background: '#353C58',
-              borderRadius: '16px',
-              padding: '18px 20px',
+              borderRadius: '28px',
+              padding: '22px 24px',
               position: 'relative',
-              height: '295px'
+              height: '335px',
+              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)'
             }}>
               <div style={{
                 position: 'absolute',
                 right: 0,
                 top: 0,
                 bottom: 0,
-                width: '6px',
+                width: '8px',
                 background: 'linear-gradient(180deg, #21C6FD 0%, #0099CC 100%)',
-                borderRadius: '0 16px 16px 0'
+                borderRadius: '0 28px 28px 0'
               }}></div>
 
               <h3 style={{
                 color: '#ffffff',
-                fontSize: '15px',
-                fontWeight: '500',
-                marginBottom: '12px',
-                letterSpacing: '0.3px'
+                fontSize: '16px',
+                fontWeight: '600',
+                marginBottom: '14px',
+                letterSpacing: '0.4px'
               }}>
                 Block Height
               </h3>
-              <ResponsiveContainer width="100%" height={245}>
+              <ResponsiveContainer width="100%" height={275}>
                 <LineChart data={blockHeightData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#2a3350" />
+                  <defs>
+                    <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#21C6FD" stopOpacity={0.8} />
+                      <stop offset="100%" stopColor="#0099CC" stopOpacity={0.3} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#2a3350" vertical={false} />
                   <XAxis
                     dataKey="time"
-                    tick={{ fill: '#8a9ab5', fontSize: 10 }}
+                    tick={{ fill: '#8a9ab5', fontSize: 11 }}
                     stroke="#2a3350"
+                    tickLine={false}
                   />
                   <YAxis
-                    domain={["auto", "auto"]}
-                    tick={{ fill: '#8a9ab5', fontSize: 10 }}
+                    domain={["dataMin - 100", "dataMax + 100"]}
+                    tick={{ fill: '#8a9ab5', fontSize: 11 }}
                     stroke="#2a3350"
+                    tickLine={false}
+                    tickFormatter={(value) => `${(value / 1000000).toFixed(2)}M`}
                   />
                   <Tooltip
                     contentStyle={{
                       background: '#1e2538',
-                      border: '1px solid #3a4562',
-                      borderRadius: '8px',
-                      color: '#ffffff'
+                      border: '1px solid #21C6FD',
+                      borderRadius: '10px',
+                      color: '#ffffff',
+                      padding: '8px 12px'
                     }}
                   />
                   <Line
                     type="monotone"
                     dataKey="blockHeight"
-                    stroke="#21C6FD"
-                    strokeWidth={2}
-                    dot={{ fill: '#21C6FD', r: 3 }}
+                    stroke="url(#lineGradient)"
+                    strokeWidth={3}
+                    dot={{ fill: '#21C6FD', r: 4, strokeWidth: 2, stroke: '#ffffff' }}
+                    activeDot={{ r: 6, fill: '#21C6FD' }}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -605,55 +584,59 @@ function Hero() {
 
             <div style={{
               background: 'linear-gradient(180deg, #21C6FD 0%, #0066B3 100%)',
-              borderRadius: '16px',
-              padding: '18px 20px',
+              borderRadius: '28px',
+              padding: '22px 24px',
               position: 'relative',
-              height: '392px'
+              height: '335px',
+              boxShadow: '0 8px 24px rgba(33, 198, 253, 0.3)'
             }}>
               <div style={{
                 position: 'absolute',
                 right: 0,
                 top: 0,
                 bottom: 0,
-                width: '6px',
+                width: '8px',
                 background: '#ffffff',
-                borderRadius: '0 16px 16px 0'
+                borderRadius: '0 28px 28px 0'
               }}></div>
 
               <h3 style={{
                 color: '#ffffff',
-                fontSize: '15px',
-                fontWeight: '500',
-                marginBottom: '12px',
-                letterSpacing: '0.3px'
+                fontSize: '16px',
+                fontWeight: '600',
+                marginBottom: '14px',
+                letterSpacing: '0.4px'
               }}>
                 Pending Transactions
               </h3>
-              <ResponsiveContainer width="100%" height={342}>
+              <ResponsiveContainer width="100%" height={275}>
                 <ComposedChart data={pendingTxData}>
                   <defs>
                     <linearGradient id="pendingGradientFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.25)" />
+                      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.3)" />
                       <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.15)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.15)" vertical={false} />
                   <XAxis
                     dataKey="time"
-                    tick={{ fill: '#ffffff', fontSize: 10 }}
+                    tick={{ fill: '#ffffff', fontSize: 11 }}
                     stroke="rgba(255, 255, 255, 0.2)"
+                    tickLine={false}
                   />
                   <YAxis
-                    domain={["auto", "auto"]}
-                    tick={{ fill: '#ffffff', fontSize: 10 }}
+                    domain={["dataMin - 20", "dataMax + 20"]}
+                    tick={{ fill: '#ffffff', fontSize: 11 }}
                     stroke="rgba(255, 255, 255, 0.2)"
+                    tickLine={false}
                   />
                   <Tooltip
                     contentStyle={{
                       background: '#0066B3',
-                      border: '1px solid #21C6FD',
-                      borderRadius: '8px',
-                      color: '#ffffff'
+                      border: '1px solid #ffffff',
+                      borderRadius: '10px',
+                      color: '#ffffff',
+                      padding: '8px 12px'
                     }}
                   />
                   <Area
@@ -666,8 +649,9 @@ function Hero() {
                     type="monotone"
                     dataKey="pendingTx"
                     stroke="#ffffff"
-                    strokeWidth={2}
-                    dot={{ fill: '#ffffff', r: 3 }}
+                    strokeWidth={3}
+                    dot={{ fill: '#ffffff', r: 4, strokeWidth: 2, stroke: '#0066B3' }}
+                    activeDot={{ r: 6, fill: '#ffffff' }}
                   />
                 </ComposedChart>
               </ResponsiveContainer>
