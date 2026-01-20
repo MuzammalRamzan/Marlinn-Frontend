@@ -337,7 +337,7 @@ function Hero() {
         }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
             <div style={{
-              background: '#292F49',
+              background: 'linear-gradient(180deg, #1a1f3a 0%, #292F49 100%)',
               borderRadius: '12px',
               padding: '25px 20px',
               position: 'relative',
@@ -351,7 +351,7 @@ function Hero() {
                 top: 0,
                 bottom: 0,
                 width: '36px',
-                background: 'linear-gradient(180deg, #21C6FD 0%, #0099CC 100%)',
+                background: 'linear-gradient(180deg, #0099CC 0%, #21C6FD 100%)',
                 borderRadius: '12px 0 0 12px'
               }}></div>
 
@@ -394,7 +394,7 @@ function Hero() {
                   value={network}
                   onChange={(e) => setNetwork(e.target.value)}
                   style={{
-                    background: 'linear-gradient(180deg, #0D5F8D 0%, #063E5F 100%)',
+                    background: 'linear-gradient(180deg, #063E5F 0%, #0D5F8D 100%)',
                     border: 'none',
                     borderRadius: '8px',
                     color: '#ffffff',
@@ -402,7 +402,7 @@ function Hero() {
                     fontSize: '15px',
                     fontWeight: '500',
                     appearance: 'none',
-                    backgroundImage: `linear-gradient(180deg, #0D5F8D 0%, #063E5F 100%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='4' fill='%2321C6FD'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23ffffff' d='M5 6L0 0h10z'/%3E%3C/svg%3E")`,
+                    backgroundImage: `linear-gradient(180deg, #063E5F 0%, #0D5F8D 100%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='4' fill='%2321C6FD'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23ffffff' d='M5 6L0 0h10z'/%3E%3C/svg%3E")`,
                     backgroundRepeat: 'no-repeat, no-repeat, no-repeat',
                     backgroundPosition: 'center, left 14px center, right 14px center',
                     cursor: 'pointer',
@@ -443,7 +443,7 @@ function Hero() {
               onChange={handleChange}
               style={{
                 width: '100%',
-                background: 'linear-gradient(90deg, #21C6FD 0%, #0E9CCC 100%)',
+                background: 'linear-gradient(180deg, #0E9CCC 0%, #21C6FD 100%)',
                 border: 'none',
                 borderRadius: '10px',
                 padding: '16px 20px',
@@ -460,7 +460,7 @@ function Hero() {
                 onClick={handleRunBot}
                 disabled={loader}
                 style={{
-                  background: 'linear-gradient(180deg, #2AC8FA 0%, #0E76B5 100%)',
+                  background: 'linear-gradient(180deg, #0E76B5 0%, #2AC8FA 100%)',
                   border: 'none',
                   borderRadius: '25px',
                   padding: '14px 90px',
@@ -480,7 +480,7 @@ function Hero() {
             <div
               className="log-card"
               style={{
-                background: '#292F49',
+                background: 'linear-gradient(180deg, #1a1f3a 0%, #292F49 100%)',
                 borderRadius: '12px',
                 padding: '20px',
                 minHeight: '280px',
@@ -505,7 +505,7 @@ function Hero() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
             <div style={{
-              background: '#353C58',
+              background: 'linear-gradient(180deg, #252c44 0%, #353C58 100%)',
               borderRadius: '28px',
               padding: '22px 24px',
               position: 'relative',
@@ -518,7 +518,7 @@ function Hero() {
                 top: 0,
                 bottom: 0,
                 width: '8px',
-                background: 'linear-gradient(180deg, #21C6FD 0%, #0099CC 100%)',
+                background: 'linear-gradient(180deg, #0099CC 0%, #21C6FD 100%)',
                 borderRadius: '0 28px 28px 0'
               }}></div>
 
@@ -575,7 +575,7 @@ function Hero() {
             </div>
 
             <div style={{
-              background: 'linear-gradient(180deg, #21C6FD 0%, #0066B3 100%)',
+              background: 'linear-gradient(180deg, #0066B3 0%, #21C6FD 100%)',
               borderRadius: '28px',
               padding: '22px 24px',
               position: 'relative',
