@@ -550,7 +550,7 @@ function Hero() {
               borderRadius: '12px',
               padding: '20px',
               position: 'relative',
-              height: '385px'
+              height: '300px'
             }}>
               <div style={{
                 position: 'absolute',
@@ -571,7 +571,7 @@ function Hero() {
               }}>
                 Block Height
               </h3>
-              <ResponsiveContainer width="100%" height={320}>
+              <ResponsiveContainer width="100%" height={240}>
                 <LineChart data={blockHeightData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#3a4562" />
                   <XAxis
@@ -608,7 +608,7 @@ function Hero() {
               borderRadius: '12px',
               padding: '20px',
               position: 'relative',
-              height: '385px'
+              height: '300px'
             }}>
               <div style={{
                 position: 'absolute',
@@ -629,7 +629,7 @@ function Hero() {
               }}>
                 Pending Transactions
               </h3>
-              <ResponsiveContainer width="100%" height={320}>
+              <ResponsiveContainer width="100%" height={240}>
                 <ComposedChart data={pendingTxData}>
                   <defs>
                     <linearGradient id="pendingGradientFill" x1="0" y1="0" x2="0" y2="1">
