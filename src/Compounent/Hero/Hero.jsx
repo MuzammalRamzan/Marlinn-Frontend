@@ -350,12 +350,12 @@ function Hero() {
                 left: 0,
                 top: 0,
                 bottom: 0,
-                width: '12px',
+                width: '36px',
                 background: 'linear-gradient(180deg, #21C6FD 0%, #0099CC 100%)',
                 borderRadius: '12px 0 0 12px'
               }}></div>
 
-              <div style={{ marginLeft: '30px', flex: 1 }}>
+              <div style={{ marginLeft: '50px', flex: 1 }}>
                 <div style={{
                   color: '#ffffff',
                   fontSize: '22px',
