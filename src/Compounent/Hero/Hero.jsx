@@ -477,26 +477,18 @@ function Hero() {
               </button>
             </div>
 
-            <div style={{
-              background: '#292F49',
-              borderRadius: '12px',
-              padding: '20px',
-              minHeight: '280px',
-              maxHeight: '380px',
-              overflowY: 'auto',
-              position: 'relative'
-            }}>
-              <div style={{
-                position: 'absolute',
-                right: 0,
-                top: '20px',
-                bottom: '20px',
-                width: '8px',
-                background: '#ffffff',
-                borderRadius: '4px 0 0 4px'
-              }}></div>
-
-              <div style={{ paddingRight: '20px' }}>
+            <div
+              className="log-card"
+              style={{
+                background: '#292F49',
+                borderRadius: '12px',
+                padding: '20px',
+                minHeight: '280px',
+                maxHeight: '380px',
+                overflowY: 'auto',
+                position: 'relative'
+              }}>
+              <div style={{ paddingRight: '10px' }}>
                 {logLines.map((line, index) => (
                   <p key={index} style={{
                     color: '#ffffff',

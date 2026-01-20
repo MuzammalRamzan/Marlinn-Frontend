@@ -17,7 +17,30 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #000000;
+  background: #191928;
   min-height: 100vh;
   color: #ffffff;
+}
+
+.log-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.log-card::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.log-card::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.log-card::-webkit-scrollbar-thumb:hover {
+  background: #e0e0e0;
+}
+
+.log-card {
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff transparent;
 }
