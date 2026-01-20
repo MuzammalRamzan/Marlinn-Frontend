@@ -493,7 +493,7 @@ function Hero() {
                 background: 'linear-gradient(180deg, #1a1f3a 0%, #292F49 100%)',
                 borderRadius: '12px',
                 padding: '20px',
-                height: '400px',
+                height: '985px',
                 overflowY: 'auto',
                 position: 'relative'
               }}>
@@ -523,13 +523,13 @@ function Hero() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '85px' }}>
             <div style={{
               background: 'linear-gradient(180deg, #252c44 0%, #353C58 100%)',
               borderRadius: '28px',
               padding: '22px 24px',
               position: 'relative',
-              height: '335px',
+              height: '450px',
               boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)'
             }}>
               <div style={{
@@ -551,7 +551,7 @@ function Hero() {
               }}>
                 Block Height
               </h3>
-              <ResponsiveContainer width="100%" height={275}>
+              <ResponsiveContainer width="100%" height={390}>
                 <LineChart data={blockHeightData}>
                   <defs>
                     <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
@@ -599,7 +599,7 @@ function Hero() {
               borderRadius: '28px',
               padding: '22px 24px',
               position: 'relative',
-              height: '335px',
+              height: '450px',
               boxShadow: '0 8px 24px rgba(33, 198, 253, 0.3)'
             }}>
               <div style={{
@@ -621,7 +621,7 @@ function Hero() {
               }}>
                 Pending Transactions
               </h3>
-              <ResponsiveContainer width="100%" height={275}>
+              <ResponsiveContainer width="100%" height={390}>
                 <ComposedChart data={pendingTxData}>
                   <defs>
                     <linearGradient id="pendingGradientFill" x1="0" y1="0" x2="0" y2="1">
