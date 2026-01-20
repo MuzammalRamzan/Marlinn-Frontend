@@ -437,9 +437,9 @@ function Hero() {
                 background: 'transparent',
                 border: '2px solid rgba(255, 255, 255, 0.1)',
                 borderRadius: '10px',
-                padding: '16px 20px',
+                padding: '20px 24px',
                 color: '#ffffff',
-                fontSize: '18px',
+                fontSize: '16px',
                 fontWeight: '400',
                 fontFamily: 'Montserrat, sans-serif',
                 outline: 'none'
@@ -456,9 +456,9 @@ function Hero() {
                 background: 'linear-gradient(180deg, #0E9CCC 0%, #21C6FD 100%)',
                 border: 'none',
                 borderRadius: '10px',
-                padding: '16px 20px',
+                padding: '20px 24px',
                 color: '#ffffff',
-                fontSize: '18px',
+                fontSize: '16px',
                 fontWeight: '400',
                 fontFamily: 'Montserrat, sans-serif',
                 outline: 'none'
@@ -493,11 +493,21 @@ function Hero() {
                 background: 'linear-gradient(180deg, #1a1f3a 0%, #292F49 100%)',
                 borderRadius: '12px',
                 padding: '20px',
-                minHeight: '280px',
-                maxHeight: '380px',
+                height: '400px',
                 overflowY: 'auto',
                 position: 'relative'
               }}>
+              <h3 style={{
+                color: '#21C6FD',
+                fontSize: '16px',
+                fontWeight: '600',
+                marginBottom: '16px',
+                letterSpacing: '0.5px',
+                borderBottom: '2px solid rgba(33, 198, 253, 0.3)',
+                paddingBottom: '10px'
+              }}>
+                Bot Transaction Logs
+              </h3>
               <div style={{ paddingRight: '10px' }}>
                 {logLines.map((line, index) => (
                   <p key={index} style={{
@@ -513,7 +523,7 @@ function Hero() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{
               background: 'linear-gradient(180deg, #252c44 0%, #353C58 100%)',
               borderRadius: '28px',
@@ -661,6 +671,22 @@ function Hero() {
           </div>
         </div>
       </div>
+
+      <footer style={{
+        borderTop: '1px solid #292F49',
+        padding: '25px 40px',
+        marginTop: '40px',
+        textAlign: 'center'
+      }}>
+        <div style={{
+          color: '#8a9ab5',
+          fontSize: '14px',
+          fontWeight: '400',
+          letterSpacing: '0.3px'
+        }}>
+          © {new Date().getFullYear()} Mango Bot. All rights reserved.
+        </div>
+      </footer>
 
       <ToastContainer />
     </div>
