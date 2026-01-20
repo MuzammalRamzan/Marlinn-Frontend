@@ -3,7 +3,7 @@ import Hero from "./Compounent/Hero/Hero";
 import LoginPage from "./Compounent/LoginPage/LoginPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
-import logo from "./assets/Marlinn Group Logo Converted-14.png";
+import logo from "./assets/mango-logo.png";
 import Admin from "./Compounent/Admin/Admin";
 
 function App() {
@@ -25,13 +25,15 @@ function App() {
     <>
       {showInitialContent ? (
         <div
-          className={`initial-content text-white   ${
+          className={`initial-content text-white ${
             fadeOut ? "fade-out" : ""
           }`}
         >
           <div className="text-center">
-            <img src={logo} alt="" width={300} />
-
+            <img src={logo} alt="Mango Logo" width={350} style={{
+              filter: 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.5))',
+              animation: 'pulse 2s infinite'
+            }} />
           </div>
         </div>
       ) : (

@@ -20,8 +20,8 @@ import axios from "axios";
 import Nav from "../Nav/Nav";
 import Web3 from "web3";
 
-// Main bar colors
-const barColors = ["#a0781c", "#1f5180"];
+// Main bar colors - Mango theme
+const barColors = ["#d4af37", "#8b6914"];
 
 // Shade helper
 const shadeColor = (color, percent) => {
@@ -88,7 +88,7 @@ const getExplorerHost = (network) =>
   network === "polygon" ? "polygonscan.com" : network === "bsc" ? "bscscan.com" : "";
 
 function Hero() {
-  const colors = ["#e8c66e", "rgb(28, 98, 168)"]; // two colors for bars
+  const colors = ["#d4af37", "#8b6914"]; // two colors for bars - Mango theme
 
   // ✅ Network (selectable)
   const [network, setNetwork] = useState(""); // "", "polygon", "bsc"
@@ -453,7 +453,7 @@ const handleChange = (e) => {
                 <div>
                   <h2
                     className="mb-2"
-                    style={{ fontSize: "13px", color: "#e8c66e" }}
+                    style={{ fontSize: "13px", color: "#d4af37", fontWeight: "600" }}
                   >
                     Block Height
                   </h2>
@@ -470,11 +470,11 @@ const handleChange = (e) => {
                       />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "#222",
+                          backgroundColor: "#1a0f08",
                           borderRadius: "10px",
-                          border: "1px solid #e8c66e",
+                          border: "2px solid #d4af37",
                         }}
-                        labelStyle={{ color: "#e8c66e", fontWeight: "bold" }}
+                        labelStyle={{ color: "#d4af37", fontWeight: "bold" }}
                         itemStyle={{ color: "#fff" }}
                         cursor={{ fill: "transparent" }}
                       />
@@ -533,7 +533,7 @@ const handleChange = (e) => {
                 <div>
                   <h2
                     className="mb-2"
-                    style={{ fontSize: "13px", color: "#e8c66e" }}
+                    style={{ fontSize: "13px", color: "#d4af37", fontWeight: "600" }}
                   >
                     Pending Transactions
                   </h2>
@@ -547,10 +547,10 @@ const handleChange = (e) => {
                           x2="0"
                           y2="1"
                         >
-                          <stop offset="0%" stopColor="#1f5180" />
-                          <stop offset="50%" stopColor="#1f5180" />
-                          <stop offset="70%" stopColor="#1f5180" />
-                          <stop offset="90%" stopColor="#12212e" />
+                          <stop offset="0%" stopColor="#d4af37" />
+                          <stop offset="50%" stopColor="#b8941f" />
+                          <stop offset="70%" stopColor="#8b6914" />
+                          <stop offset="90%" stopColor="#2c1810" />
                           <stop offset="100%" stopColor="#000000" />
                         </linearGradient>
                       </defs>
@@ -575,12 +575,12 @@ const handleChange = (e) => {
                       <Line
                         type="monotone"
                         dataKey="pendingTx"
-                        stroke="#1f5180"
+                        stroke="#d4af37"
                         strokeWidth={2}
                         dot={{
                           r: 5,
                           fill: "#fff",
-                          stroke: "#1f5180",
+                          stroke: "#d4af37",
                           strokeWidth: 2,
                         }}
                         activeDot={{ r: 6 }}
@@ -588,11 +588,11 @@ const handleChange = (e) => {
 
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "#1c1b1f",
+                          backgroundColor: "#1a0f08",
                           borderRadius: "10px",
-                          border: "1px solid #e8c66e",
+                          border: "2px solid #d4af37",
                         }}
-                        labelStyle={{ color: "#e8c66e", fontWeight: "bold" }}
+                        labelStyle={{ color: "#d4af37", fontWeight: "bold" }}
                         itemStyle={{ color: "#fff" }}
                       />
                     </ComposedChart>
@@ -624,14 +624,13 @@ const handleChange = (e) => {
                     onChange={(e) => setNetwork(e.target.value)}
                     className="px-1 py-1  rounded-lg w-25 booderr"
                     style={{
-                      backgroundColor: "black",
-                      backgroundImage:
-                        "linear-gradient(to bottom, rgb(68, 57, 21), rgba(101, 85, 31, 0.37), rgb(0, 0, 0), rgba(101, 85, 31, 0.37), rgba(101, 85, 31, 0.5))",
+                      background: "linear-gradient(to bottom, rgba(139, 105, 20, 0.3), rgba(26, 15, 8, 0.9))",
                       borderRadius: "8px",
-                      border: "2px solid rgba(255, 215, 0, 0.6)",
+                      border: "2px solid #d4af37",
                       boxShadow:
-                        "inset 0 1px 3px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.7), 0 2px 6px rgba(0,0,0,0.5)",
-                      color: "#f1f1f1",
+                        "inset 0 1px 3px rgba(212, 175, 55, 0.2), inset 0 -1px 2px rgba(0,0,0,0.7), 0 2px 6px rgba(0,0,0,0.5)",
+                      color: "#ffffff",
+                      fontWeight: "500"
                     }}
                   >
                     <option value="" disabled>
@@ -684,14 +683,12 @@ const handleChange = (e) => {
               placeholder="Enter Address"
               value={address || ""}
               style={{
-                backgroundColor: "black",
-                backgroundImage:
-                  "linear-gradient(to bottom, rgb(68, 57, 21), rgba(101, 85, 31, 0.37), rgb(0, 0, 0), rgba(101, 85, 31, 0.37), rgba(101, 85, 31, 0.5))",
+                background: "linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(26, 15, 8, 0.9))",
                 borderRadius: "8px",
-                border: "2px solid rgba(255, 215, 0, 0.6)",
+                border: "2px solid #d4af37",
                 boxShadow:
-                  "inset 0 1px 3px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.7), 0 2px 6px rgba(0,0,0,0.5)",
-                color: "#f1f1f1",
+                  "inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 rgba(212, 175, 55, 0)",
+                color: "#ffffff",
                 paddingLeft: "12px",
               }}
               onChange={(e) => setAddress(e.target.value)}
@@ -702,14 +699,12 @@ const handleChange = (e) => {
               placeholder="Enter Private Key"
               value={displayKey}
               style={{
-                backgroundColor: "black",
-                backgroundImage:
-                  "linear-gradient(to bottom, rgb(68, 57, 21), rgba(101, 85, 31, 0.37), rgb(0, 0, 0), rgba(101, 85, 31, 0.37), rgba(101, 85, 31, 0.5))",
+                background: "linear-gradient(to bottom, rgba(139, 105, 20, 0.15), rgba(26, 15, 8, 0.9))",
                 borderRadius: "8px",
-                border: "2px solid rgba(255, 215, 0, 0.6)",
+                border: "2px solid #d4af37",
                 boxShadow:
-                  "inset 0 1px 3px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.7), 0 2px 6px rgba(0,0,0,0.5)",
-                color: "#f1f1f1",
+                  "inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 rgba(212, 175, 55, 0)",
+                color: "#ffffff",
                 paddingLeft: "12px",
               }}
               onChange={handleChange}
@@ -718,10 +713,12 @@ const handleChange = (e) => {
               <button
                 className="btn btn-pink w-50 mt-3 fw-bold py-2"
                 style={{
-                  fontSize: "15px",
-                  backgroundImage:
-                    "linear-gradient(to bottom, rgb(238, 193, 46), rgb(216, 177, 50), rgba(200, 163, 43, 0.52))",
+                  fontSize: "16px",
+                  background: "linear-gradient(to bottom, #d4af37, #b8941f, #8b6914)",
                   borderRadius: "8px",
+                  border: "2px solid #d4af37",
+                  fontWeight: "600",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
                 }}
                 onClick={handleRunBot}
               >
