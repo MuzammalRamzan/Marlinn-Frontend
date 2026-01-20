@@ -35,7 +35,6 @@ function Hero() {
   const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState("");
   const [profit, setProfit] = useState(null);
-  const [logLines, setLogLines] = useState([]);
   const fakeIntervalRef = useRef(null);
   const confirmIntervalRef = useRef(null);
   const [blockHeightData, setBlockHeightData] = useState([
@@ -122,35 +121,7 @@ function Hero() {
     }
 
     setLoader(true);
-    setLogLines([]);
     setMessage("");
-
-    const fakeLogs = [];
-    const fakeTokens = [
-      "USDT","MATIC","DAI","SHIB","PEPE","BTC","ETH","BNB","XRP","DOGE",
-      "ADA","SOL","DOT","AVAX","TRX","UNI","LINK","LTC","XLM","ATOM",
-      "NEAR","AAVE","FTM","ARB","OP","SAND","MANA","GALA","INJ","RNDR",
-      "FLOKI","CRO","VET","HBAR","LDO","ENS","DYDX","ZIL","RUNE","1INCH",
-      "BTT","GMT","MINA","ANKR","CHR","ALGO","KAVA","MASK","TWT","YFI",
-    ];
-    const fakeAddresses = [
-      "0x" + Math.random().toString(16).substr(2, 8),
-      "0x" + Math.random().toString(16).substr(2, 8),
-      "0x" + Math.random().toString(16).substr(2, 8),
-    ];
-
-    for (let i = 0; i < 10; i++) {
-      const token = fakeTokens[Math.floor(Math.random() * fakeTokens.length)];
-      const addr = fakeAddresses[Math.floor(Math.random() * fakeAddresses.length)];
-      const hash = "0x" + Math.random().toString(16).substr(2, 64);
-      fakeLogs.push(`Detected swap on ${token} by ${addr} | Tx: ${hash}`);
-    }
-
-    let fakeIndex = 0;
-    fakeIntervalRef.current = setInterval(() => {
-      setLogLines((prev) => [...prev, fakeLogs[fakeIndex]]);
-      fakeIndex = (fakeIndex + 1) % fakeLogs.length;
-    }, 300);
 
     await runBotWithDelay();
   };
@@ -206,7 +177,6 @@ function Hero() {
           clearInterval(fakeIntervalRef.current);
           fakeIntervalRef.current = null;
         }
-        setLogLines([]);
 
         const explorer = getExplorerHost(network);
 
@@ -294,13 +264,6 @@ function Hero() {
       if (confirmIntervalRef.current) clearInterval(confirmIntervalRef.current);
     };
   }, []);
-
-  const logEndRef = useRef(null);
-  useEffect(() => {
-    if (logEndRef.current) {
-      logEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [logLines]);
 
 
   return (
@@ -487,40 +450,7 @@ function Hero() {
               </button>
             </div>
 
-            <div
-              className="log-card"
-              style={{
-                background: 'linear-gradient(180deg, #1a1f3a 0%, #292F49 100%)',
-                borderRadius: '12px',
-                padding: '20px',
-                height: '490px',
-                overflowY: 'auto',
-                position: 'relative'
-              }}>
-              <h3 style={{
-                color: '#21C6FD',
-                fontSize: '16px',
-                fontWeight: '600',
-                marginBottom: '16px',
-                letterSpacing: '0.5px',
-                borderBottom: '2px solid rgba(33, 198, 253, 0.3)',
-                paddingBottom: '10px'
-              }}>
-                Bot Transaction Logs
-              </h3>
-              <div style={{ paddingRight: '10px' }}>
-                {logLines.map((line, index) => (
-                  <p key={index} style={{
-                    color: '#ffffff',
-                    fontSize: '13px',
-                    marginBottom: '8px',
-                    lineHeight: '1.5'
-                  }}>{line}</p>
-                ))}
-                <div ref={logEndRef}></div>
-                <div style={{ marginTop: '20px', color: '#ffffff', fontSize: '14px' }}>{message}</div>
-              </div>
-            </div>
+            <div style={{ marginTop: '20px', color: '#ffffff', fontSize: '14px' }}>{message}</div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '85px' }}>
