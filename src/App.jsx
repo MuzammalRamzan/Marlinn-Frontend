@@ -29,10 +29,11 @@ function App() {
             fadeOut ? "fade-out" : ""
           }`}
         >
-          <div className="text-center">
-            <img src={logo} alt="Mango Logo" width={280} style={{
-              filter: 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.3))'
-            }} />
+          <div className="glow-arc arc-1"></div>
+          <div className="glow-arc arc-2"></div>
+          <div className="glow-arc arc-3"></div>
+          <div className="text-center logo-container">
+            <img src={logo} alt="Mango Logo" width={320} />
           </div>
         </div>
       ) : (

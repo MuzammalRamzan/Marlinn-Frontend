@@ -129,11 +129,117 @@ option:hover {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, #1a0f08 0%, #0a0503 50%, #000000 100%);
+  background: radial-gradient(ellipse at center, #1a2332 0%, #0d1520 50%, #000000 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
+  overflow: hidden;
+}
+
+.initial-content::before {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background:
+    radial-gradient(ellipse 800px 400px at 30% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 800px 400px at 70% 80%, rgba(37, 99, 235, 0.12) 0%, transparent 50%);
+  animation: moveGlow 8s ease-in-out infinite;
+}
+
+@keyframes moveGlow {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-30px, -30px) rotate(2deg);
+  }
+}
+
+.initial-content .glow-arc {
+  position: absolute;
+  border: 2px solid rgba(59, 130, 246, 0.4);
+  border-radius: 50%;
+  filter: blur(1px);
+  box-shadow:
+    0 0 20px rgba(59, 130, 246, 0.6),
+    0 0 40px rgba(59, 130, 246, 0.4),
+    inset 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.initial-content .arc-1 {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  right: -150px;
+  clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
+  animation: rotateArc1 6s linear infinite;
+}
+
+.initial-content .arc-2 {
+  width: 800px;
+  height: 800px;
+  bottom: -300px;
+  left: -200px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
+  animation: rotateArc2 8s linear infinite;
+}
+
+.initial-content .arc-3 {
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes rotateArc1 {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes rotateArc2 {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+.initial-content .logo-container {
+  position: relative;
+  z-index: 10;
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.8))
+            drop-shadow(0 0 60px rgba(59, 130, 246, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px rgba(59, 130, 246, 1))
+            drop-shadow(0 0 80px rgba(59, 130, 246, 0.7));
+  }
 }
 
 .fade-out {
