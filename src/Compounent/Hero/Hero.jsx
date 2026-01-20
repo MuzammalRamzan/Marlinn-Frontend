@@ -390,22 +390,21 @@ function Hero() {
               </div>
 
               <div style={{ marginRight: '15px', display: 'flex', alignItems: 'center' }}>
-                <span style={{ color: '#21C6FD', fontSize: '18px', marginRight: '8px' }}>⬤</span>
                 <select
                   value={network}
                   onChange={(e) => setNetwork(e.target.value)}
                   style={{
                     background: '#1e2538',
-                    border: '1px solid #3a4562',
+                    border: '1px solid #21C6FD',
                     borderRadius: '6px',
                     color: '#ffffff',
-                    padding: '8px 35px 8px 12px',
+                    padding: '8px 12px 8px 32px',
                     fontSize: '14px',
                     fontWeight: '500',
                     appearance: 'none',
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff' d='M6 8L0 2h12z'/%3E%3C/svg%3E")`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'right 12px center',
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='4' fill='%2321C6FD'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff' d='M6 8L0 2h12z'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat, no-repeat',
+                    backgroundPosition: 'left 12px center, right 12px center',
                     cursor: 'pointer',
                     fontFamily: 'Montserrat, sans-serif'
                   }}
@@ -428,7 +427,7 @@ function Hero() {
                 border: 'none',
                 borderRadius: '10px',
                 padding: '16px 20px',
-                color: '#545B7A',
+                color: '#ffffff',
                 fontSize: '15px',
                 fontWeight: '400',
                 fontFamily: 'Montserrat, sans-serif',
