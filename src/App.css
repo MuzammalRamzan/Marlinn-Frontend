@@ -243,10 +243,10 @@ body {
 }
 
 .logs-container::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #22c55e, #16a34a);
+  background: #ffffff;
   border-radius: 3px;
 }
 
 .logs-container::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #4ade80, #22c55e);
+  background: rgba(255, 255, 255, 0.8);
 }

@@ -481,7 +481,7 @@ function Hero() {
             <div style={{ marginTop: '20px', color: '#ffffff', fontSize: '14px' }}>{message}</div>
 
             <div style={{
-              marginTop: '40px',
+              marginTop: '20px',
               background: 'linear-gradient(180deg, #1e2538 0%, #252c44 100%)',
               borderRadius: '28px',
               padding: '22px 24px',
