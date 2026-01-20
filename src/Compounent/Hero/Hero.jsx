@@ -511,13 +511,13 @@ function Hero() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
             <div style={{
               background: '#353C58',
               borderRadius: '28px',
               padding: '22px 24px',
               position: 'relative',
-              height: '300px',
+              height: '335px',
               boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)'
             }}>
               <div style={{
@@ -539,7 +539,7 @@ function Hero() {
               }}>
                 Block Height
               </h3>
-              <ResponsiveContainer width="100%" height={240}>
+              <ResponsiveContainer width="100%" height={275}>
                 <LineChart data={blockHeightData}>
                   <defs>
                     <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
@@ -587,7 +587,7 @@ function Hero() {
               borderRadius: '28px',
               padding: '22px 24px',
               position: 'relative',
-              height: '360px',
+              height: '335px',
               boxShadow: '0 8px 24px rgba(33, 198, 253, 0.3)'
             }}>
               <div style={{
@@ -609,7 +609,7 @@ function Hero() {
               }}>
                 Pending Transactions
               </h3>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={275}>
                 <ComposedChart data={pendingTxData}>
                   <defs>
                     <linearGradient id="pendingGradientFill" x1="0" y1="0" x2="0" y2="1">
