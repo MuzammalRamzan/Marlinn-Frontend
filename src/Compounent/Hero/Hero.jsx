@@ -394,19 +394,20 @@ function Hero() {
                   value={network}
                   onChange={(e) => setNetwork(e.target.value)}
                   style={{
-                    background: '#1e2538',
-                    border: '1px solid #21C6FD',
-                    borderRadius: '6px',
+                    background: '#2a3346',
+                    border: '2px solid #21C6FD',
+                    borderRadius: '8px',
                     color: '#ffffff',
-                    padding: '8px 12px 8px 32px',
-                    fontSize: '14px',
+                    padding: '10px 35px 10px 35px',
+                    fontSize: '15px',
                     fontWeight: '500',
                     appearance: 'none',
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='4' fill='%2321C6FD'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff' d='M6 8L0 2h12z'/%3E%3C/svg%3E")`,
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='4' fill='%2321C6FD'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23ffffff' d='M5 6L0 0h10z'/%3E%3C/svg%3E")`,
                     backgroundRepeat: 'no-repeat, no-repeat',
-                    backgroundPosition: 'left 12px center, right 12px center',
+                    backgroundPosition: 'left 14px center, right 14px center',
                     cursor: 'pointer',
-                    fontFamily: 'Montserrat, sans-serif'
+                    fontFamily: 'Montserrat, sans-serif',
+                    minWidth: '140px'
                   }}
                 >
                   <option value="">Select Network</option>
