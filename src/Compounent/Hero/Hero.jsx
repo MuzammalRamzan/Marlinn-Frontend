@@ -493,7 +493,7 @@ function Hero() {
                 background: 'linear-gradient(180deg, #1a1f3a 0%, #292F49 100%)',
                 borderRadius: '12px',
                 padding: '20px',
-                height: '985px',
+                height: '490px',
                 overflowY: 'auto',
                 position: 'relative'
               }}>
