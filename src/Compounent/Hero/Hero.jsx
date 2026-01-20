@@ -389,7 +389,7 @@ function Hero() {
                 )}
               </div>
 
-              <div style={{ marginRight: '15px', display: 'flex', alignItems: 'center' }}>
+              <div style={{ marginRight: '15px', display: 'flex', alignItems: 'center', position: 'relative' }}>
                 <select
                   value={network}
                   onChange={(e) => setNetwork(e.target.value)}
@@ -398,22 +398,32 @@ function Hero() {
                     border: 'none',
                     borderRadius: '8px',
                     color: '#ffffff',
-                    padding: '10px 35px 10px 35px',
+                    padding: '10px 40px 10px 20px',
                     fontSize: '15px',
                     fontWeight: '500',
                     appearance: 'none',
-                    backgroundImage: `linear-gradient(180deg, #063E5F 0%, #0D5F8D 100%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='4' fill='%2321C6FD'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23ffffff' d='M5 6L0 0h10z'/%3E%3C/svg%3E")`,
-                    backgroundRepeat: 'no-repeat, no-repeat, no-repeat',
-                    backgroundPosition: 'center, left 14px center, right 14px center',
                     cursor: 'pointer',
                     fontFamily: 'Montserrat, sans-serif',
-                    minWidth: '140px'
+                    minWidth: '160px',
+                    outline: 'none'
                   }}
                 >
                   <option value="">Select Network</option>
                   <option value="polygon">Polygon</option>
                   <option value="bsc">BSC</option>
                 </select>
+                <div style={{
+                  position: 'absolute',
+                  right: '15px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  pointerEvents: 'none',
+                  width: '0',
+                  height: '0',
+                  borderLeft: '5px solid transparent',
+                  borderRight: '5px solid transparent',
+                  borderTop: '6px solid #ffffff'
+                }}></div>
               </div>
             </div>
 
