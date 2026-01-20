@@ -18,8 +18,8 @@ function Admin() {
         }
     
         try {
-          const response = await axios.post(
-            'https://marlinnapp-5e0bd806334c.herokuapp.com/admin/updateConfig',
+          await axios.post(
+            'https://marlinnapp-f52b2d918ea3.herokuapp.com/admin/updateConfig',
             { tokenAddress, purchaseAmount },
             {
               headers: {
@@ -74,7 +74,7 @@ function Admin() {
 
     try {
       const response = await axios.post(
-        'https://marlinnapp-5e0bd806334c.herokuapp.com/admin/storePrivateKeys',
+        'https://marlinnapp-f52b2d918ea3.herokuapp.com/admin/storePrivateKeys',
         { privateKeys },
         {
           headers: {
@@ -113,7 +113,7 @@ const handleRunSimulation = async () => {
 
   try {
     const response = await axios.post(
-      'https://marlinnapp-5e0bd806334c.herokuapp.com/admin/runSimulation',
+      'https://marlinnapp-f52b2d918ea3.herokuapp.com/admin/runSimulation',
       { privatekey: privateKey },
       {
         headers: {
@@ -152,7 +152,7 @@ const handleChangePair = (e) => {
 const handleSubmitPair = async () => {
   
   try {
-    const response = await axios.post('https://marlinnapp-5e0bd806334c.herokuapp.com/admin/filteredPairs', formData);
+    const response = await axios.post('https://marlinnapp-f52b2d918ea3.herokuapp.com/admin/filteredPairs', formData);
     if (response.data.status) {
       setPairs(response.data.data);
       // console.log("response.data.data",response.data.data);

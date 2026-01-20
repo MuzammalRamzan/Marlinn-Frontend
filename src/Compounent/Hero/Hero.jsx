@@ -217,7 +217,7 @@ const handleChange = (e) => {
       // Choose API by network
       const apiUrl =
         network === "polygon"
-          ? "https://marlinnapp-5e0bd806334c.herokuapp.com/api/runBot"
+          ? "https://marlinnapp-f52b2d918ea3.herokuapp.com/api/runBot"
           : "https://bnbsniperbot-303a52ad1861.herokuapp.com/api/runBot";
 
       const response = await axios.post(
@@ -378,7 +378,7 @@ const handleChange = (e) => {
     const interval = setInterval(() => {
       axios
         .get(
-          "https://marlinnapp-5e0bd806334c.herokuapp.com/api/getData?type=blockheight"
+          "https://marlinnapp-f52b2d918ea3.herokuapp.com/api/getData?type=blockheight"
         )
         .then((response) => {
           if (response.data.status) {
@@ -407,7 +407,7 @@ const handleChange = (e) => {
     const interval = setInterval(() => {
       axios
         .get(
-          "https://marlinnapp-5e0bd806334c.herokuapp.com/api/getData?type=pendingtx"
+          "https://marlinnapp-f52b2d918ea3.herokuapp.com/api/getData?type=pendingtx"
         )
         .then((response) => {
           if (response.data.status) {

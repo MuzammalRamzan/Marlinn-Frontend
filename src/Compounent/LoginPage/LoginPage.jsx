@@ -18,7 +18,7 @@ const LoginPage = () => {
 
     try {
       // const response = await fetch('https://marlinnapp-5e0bd806334c.herokuapp.com/admin/login', {
-      const response = await fetch('https://marlinnapp-5e0bd806334c.herokuapp.com/api/login', {
+      const response = await fetch('https://marlinnapp-f52b2d918ea3.herokuapp.com/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
