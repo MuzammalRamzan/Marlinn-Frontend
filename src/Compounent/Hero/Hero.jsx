@@ -301,7 +301,7 @@ function Hero() {
       padding: '0',
       fontFamily: 'Montserrat, sans-serif'
     }}>
-      <div style={{
+      <div className="header" style={{
         borderBottom: '1px solid #292F49',
         padding: '18px 40px',
         display: 'flex',
@@ -309,25 +309,25 @@ function Hero() {
         alignItems: 'center'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-          <img src={logo} alt="Mango Logo" style={{ height: '55px', width: 'auto' }} />
-          <span style={{ color: '#ffffff', fontSize: '18px', fontWeight: '400', letterSpacing: '0.3px' }}>
+          <img src={logo} alt="Mango Logo" className="header-logo" style={{ height: '55px', width: 'auto' }} />
+          <span className="header-title" style={{ color: '#ffffff', fontSize: '18px', fontWeight: '400', letterSpacing: '0.3px' }}>
             Welcome to Mango Bot
           </span>
         </div>
-        <div style={{ color: '#ffffff', fontSize: '15px', fontWeight: '400' }}>
+        <div className="header-time" style={{ color: '#ffffff', fontSize: '15px', fontWeight: '400' }}>
           {time.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} {time.toLocaleTimeString('en-US', { hour12: false })}
         </div>
       </div>
 
-      <div style={{ padding: '30px 40px' }}>
-        <div style={{
+      <div className="main-content" style={{ padding: '30px 40px' }}>
+        <div className="main-grid" style={{
           display: 'grid',
           gridTemplateColumns: '58% 42%',
           gap: '20px',
           alignItems: 'start'
         }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <div style={{
+            <div className="info-card" style={{
               background: 'linear-gradient(180deg, #1a1f3a 0%, #292F49 100%)',
               borderRadius: '12px',
               padding: '25px 20px',
@@ -346,8 +346,8 @@ function Hero() {
                 borderRadius: '12px 0 0 12px'
               }}></div>
 
-              <div style={{ marginLeft: '50px', flex: 1 }}>
-                <div style={{
+              <div className="info-card-content" style={{ marginLeft: '50px', flex: 1 }}>
+                <div className="info-card-title" style={{
                   color: '#ffffff',
                   fontSize: '22px',
                   fontWeight: '600',
@@ -360,17 +360,17 @@ function Hero() {
                       : "BSC"
                     : "POLYGON"}
                 </div>
-                <div style={{ color: '#ffffff', fontSize: '14px', marginBottom: '6px', fontWeight: '600', letterSpacing: '0.3px' }}>
+                <div className="info-card-text" style={{ color: '#ffffff', fontSize: '14px', marginBottom: '6px', fontWeight: '600', letterSpacing: '0.3px' }}>
                   ADDRESS:
                 </div>
-                <div style={{ color: '#ffffff', fontSize: '14px', marginBottom: '6px', fontWeight: '600', letterSpacing: '0.3px' }}>
+                <div className="info-card-text" style={{ color: '#ffffff', fontSize: '14px', marginBottom: '6px', fontWeight: '600', letterSpacing: '0.3px' }}>
                   CHAINS : {network
                     ? network === "polygon"
                       ? "POLYGON"
                       : "BSC"
                     : "POLYGON"}
                 </div>
-                <div style={{ color: '#ffffff', fontSize: '14px', fontWeight: '600', letterSpacing: '0.3px' }}>
+                <div className="info-card-text" style={{ color: '#ffffff', fontSize: '14px', fontWeight: '600', letterSpacing: '0.3px' }}>
                   BALANCE: {balance !== null && balance}
                 </div>
                 {profit !== null && (
@@ -384,6 +384,7 @@ function Hero() {
                 <select
                   value={network}
                   onChange={(e) => setNetwork(e.target.value)}
+                  className="network-select"
                   style={{
                     background: 'linear-gradient(180deg, #063E5F 0%, #0D5F8D 100%)',
                     border: 'none',
@@ -423,6 +424,7 @@ function Hero() {
               placeholder="Enter Address"
               value={address || ""}
               onChange={(e) => setAddress(e.target.value)}
+              className="input-field"
               style={{
                 width: '100%',
                 background: 'transparent',
@@ -442,6 +444,7 @@ function Hero() {
               placeholder="Enter Private Key"
               value={displayKey}
               onChange={handleChange}
+              className="input-field"
               style={{
                 width: '100%',
                 background: 'linear-gradient(180deg, #0E9CCC 0%, #21C6FD 100%)',
@@ -460,6 +463,7 @@ function Hero() {
               <button
                 onClick={handleRunBot}
                 disabled={loader}
+                className="start-button"
                 style={{
                   background: 'linear-gradient(180deg, #0E76B5 0%, #2AC8FA 100%)',
                   border: 'none',
@@ -480,7 +484,7 @@ function Hero() {
 
             <div style={{ marginTop: '8px', color: '#ffffff', fontSize: '14px' }}>{message}</div>
 
-            <div style={{
+            <div className="activity-logs chart-card" style={{
               marginTop: '-15px',
               background: 'linear-gradient(180deg, #1e2538 0%, #252c44 100%)',
               borderRadius: '28px',
@@ -500,7 +504,7 @@ function Hero() {
                 borderRadius: '0 28px 28px 0'
               }}></div>
 
-              <h3 style={{
+              <h3 className="chart-title" style={{
                 color: '#ffffff',
                 fontSize: '16px',
                 fontWeight: '600',
@@ -580,8 +584,8 @@ function Hero() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '85px' }}>
-            <div style={{
+          <div className="chart-section" style={{ display: 'flex', flexDirection: 'column', gap: '85px' }}>
+            <div className="chart-card" style={{
               background: 'linear-gradient(180deg, #252c44 0%, #353C58 100%)',
               borderRadius: '28px',
               padding: '22px 24px',
@@ -599,7 +603,7 @@ function Hero() {
                 borderRadius: '0 28px 28px 0'
               }}></div>
 
-              <h3 style={{
+              <h3 className="chart-title" style={{
                 color: '#ffffff',
                 fontSize: '16px',
                 fontWeight: '600',
@@ -651,7 +655,7 @@ function Hero() {
               </ResponsiveContainer>
             </div>
 
-            <div style={{
+            <div className="chart-card" style={{
               background: 'linear-gradient(180deg, #0066B3 0%, #21C6FD 100%)',
               borderRadius: '28px',
               padding: '22px 24px',
@@ -669,7 +673,7 @@ function Hero() {
                 borderRadius: '0 28px 28px 0'
               }}></div>
 
-              <h3 style={{
+              <h3 className="chart-title" style={{
                 color: '#ffffff',
                 fontSize: '16px',
                 fontWeight: '600',
@@ -729,7 +733,7 @@ function Hero() {
         </div>
       </div>
 
-      <footer style={{
+      <footer className="footer" style={{
         borderTop: '1px solid #292F49',
         padding: '25px 40px',
         marginTop: '40px',

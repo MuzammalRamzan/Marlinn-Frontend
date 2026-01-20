@@ -64,3 +64,179 @@ input:-ms-input-placeholder {
   color: #ffffff !important;
   opacity: 0.7;
 }
+
+.logs-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.logs-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.logs-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+.logs-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .chart-section {
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 20px !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+  }
+
+  .header-logo {
+    height: 40px !important;
+  }
+
+  .header-title {
+    font-size: 16px !important;
+  }
+
+  .header-time {
+    font-size: 13px !important;
+    align-self: flex-start !important;
+  }
+
+  .main-content {
+    padding: 20px 15px !important;
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+
+  .info-card {
+    padding: 20px 15px !important;
+  }
+
+  .info-card-content {
+    margin-left: 40px !important;
+  }
+
+  .info-card-title {
+    font-size: 18px !important;
+  }
+
+  .info-card-text {
+    font-size: 13px !important;
+  }
+
+  .network-select {
+    min-width: 140px !important;
+    padding: 8px 35px 8px 15px !important;
+    font-size: 14px !important;
+  }
+
+  .input-field {
+    padding: 16px 20px !important;
+    font-size: 15px !important;
+  }
+
+  .start-button {
+    padding: 12px 60px !important;
+    font-size: 15px !important;
+  }
+
+  .chart-card {
+    height: 320px !important;
+    padding: 18px 16px !important;
+  }
+
+  .chart-title {
+    font-size: 15px !important;
+  }
+
+  .chart-section {
+    gap: 20px !important;
+  }
+
+  .footer {
+    padding: 20px 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 15px !important;
+  }
+
+  .header-logo {
+    height: 35px !important;
+  }
+
+  .header-title {
+    font-size: 14px !important;
+  }
+
+  .header-time {
+    font-size: 12px !important;
+  }
+
+  .main-content {
+    padding: 15px 10px !important;
+  }
+
+  .info-card {
+    padding: 18px 12px !important;
+  }
+
+  .info-card-content {
+    margin-left: 35px !important;
+  }
+
+  .info-card-title {
+    font-size: 16px !important;
+  }
+
+  .info-card-text {
+    font-size: 12px !important;
+  }
+
+  .network-select {
+    min-width: 120px !important;
+    padding: 8px 30px 8px 12px !important;
+    font-size: 13px !important;
+  }
+
+  .input-field {
+    padding: 14px 16px !important;
+    font-size: 14px !important;
+  }
+
+  .start-button {
+    padding: 12px 50px !important;
+    font-size: 14px !important;
+  }
+
+  .chart-card {
+    height: 280px !important;
+    padding: 16px 12px !important;
+  }
+
+  .activity-logs {
+    height: 300px !important;
+  }
+
+  .chart-title {
+    font-size: 14px !important;
+    margin-bottom: 12px !important;
+  }
+}
