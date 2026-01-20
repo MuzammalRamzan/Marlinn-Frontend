@@ -348,11 +348,11 @@ function Hero() {
               <div style={{
                 position: 'absolute',
                 left: 0,
-                top: '25px',
-                bottom: '25px',
-                width: '8px',
+                top: 0,
+                bottom: 0,
+                width: '12px',
                 background: 'linear-gradient(180deg, #21C6FD 0%, #0099CC 100%)',
-                borderRadius: '0 4px 4px 0'
+                borderRadius: '12px 0 0 12px'
               }}></div>
 
               <div style={{ marginLeft: '30px', flex: 1 }}>
@@ -424,12 +424,12 @@ function Hero() {
               onChange={(e) => setAddress(e.target.value)}
               style={{
                 width: '100%',
-                background: '#292F49',
-                border: 'none',
+                background: 'transparent',
+                border: '2px solid rgba(255, 255, 255, 0.1)',
                 borderRadius: '10px',
                 padding: '16px 20px',
                 color: '#ffffff',
-                fontSize: '15px',
+                fontSize: '18px',
                 fontWeight: '400',
                 fontFamily: 'Montserrat, sans-serif',
                 outline: 'none'
@@ -448,7 +448,7 @@ function Hero() {
                 borderRadius: '10px',
                 padding: '16px 20px',
                 color: '#ffffff',
-                fontSize: '15px',
+                fontSize: '18px',
                 fontWeight: '400',
                 fontFamily: 'Montserrat, sans-serif',
                 outline: 'none'
