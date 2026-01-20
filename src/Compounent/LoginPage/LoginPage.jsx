@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/mango-logo.png';
 
@@ -47,11 +47,17 @@ const LoginPage = () => {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center vh-100 text-white" style={{
-      background: 'radial-gradient(ellipse at center, #1a2332 0%, #0d1520 50%, #000000 100%)'
+    <div style={{
+      background: 'radial-gradient(ellipse at center, #1a2332 0%, #0d1520 50%, #000000 100%)',
+      minHeight: '100vh',
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '20px'
     }}>
       <div
-        className="w-100 p-5 rounded-4"
+        className="w-100 p-5 rounded-4 text-white"
         style={{
           maxWidth: '500px',
           background: 'linear-gradient(to bottom, rgba(26, 35, 50, 0.95), rgba(13, 21, 32, 0.98))',
@@ -146,7 +152,7 @@ const LoginPage = () => {
           </Button>
         </Form>
       </div>
-    </Container>
+    </div>
   );
 };
 
